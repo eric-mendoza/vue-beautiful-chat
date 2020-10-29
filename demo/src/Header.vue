@@ -1,14 +1,6 @@
 <template>
   <div class="demo-header" :style="{color: linkColor}">
-    <div class="demo-header--title">vue-beautiful-chat</div>
-    <div class="demo-header--links">
-      <a href="https://github.com/mattmezza/vue-beautiful-chat" :style="{color: linkColor}">GitHub</a><iframe
-        src="https://ghbtns.com/github-btn.html?user=mattmezza&repo=vue-beautiful-chat&type=star&count=true"
-        frameborder="0"
-        scrolling="0"
-        width="94px"
-        height="20px"></iframe>
-    </div>
+    <div class="demo-header--title">Vuetiful Chat</div>
   </div>
 </template>
 
@@ -38,14 +30,14 @@ export default {
   color: #4e8cff;
   display: flex;
   justify-content: space-between;
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .demo-header--title {
   font-size: 24px;
   font-weight: 600;
+  margin: 1em;
 }
 
 .demo-header--links {

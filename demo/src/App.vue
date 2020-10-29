@@ -1,113 +1,64 @@
 <template>
-  <div :style="{background: backgroundColor}">
-    <Header
-      :chosenColor="chosenColor"
-      :colors="colors"
-    />
-    <beautiful-chat 
-      :alwaysScrollToBottom="alwaysScrollToBottom"
+  <div class="demo-container" :style="{background: backgroundColor}">
+    <Header :chosen-color="chosenColor" :colors="colors" />
+    <chat-menu
+        :chats="chats"
+    >
+
+    </chat-menu>
+    <beautiful-chat
+      :always-scroll-to-bottom="alwaysScrollToBottom"
       :close="closeChat"
       :colors="colors"
-      :isOpen="isChatOpen"
-      :messageList="messageList"
-      :messageStyling="messageStyling"
-      :newMessagesCount="newMessagesCount"
-      :onMessageWasSent="onMessageWasSent"
+      :is-open="isChatOpen"
+      :message-list="messageList"
+      :message-styling="messageStyling"
+      :new-messages-count="newMessagesCount"
+      :on-message-was-sent="onMessageWasSent"
       :open="openChat"
       :participants="participants"
-      :showCloseButton="true"
-      :showLauncher="true"
-      :showEmoji="true"
-      :showFile="true"
-      :showTypingIndicator="showTypingIndicator"
-      :showEdition="true"
-      :showDeletion="true"
-      :showConfirmationDeletion="true"
-      :confirmationDeletionMessage="'Are you sure? (you can customize this message)'"
-      :titleImageUrl="titleImageUrl"
-      :disableUserListToggle="false"
+      :show-close-button="true"
+      :show-launcher="true"
+      :show-emoji="true"
+      :show-file="true"
+      :show-typing-indicator="showTypingIndicator"
+      :show-edition="true"
+      :show-deletion="true"
+      :show-confirmation-deletion="true"
+      :confirmation-deletion-message="'Are you sure? (you can customize this message)'"
+      :title-image-url="titleImageUrl"
+      :disable-user-list-toggle="false"
       @onType="handleOnType"
       @edit="editMessage"
       @remove="removeMessage"
     >
       <template v-slot:text-message-toolbox="scopedProps">
-        <button v-if="!scopedProps.me && scopedProps.message.type==='text'" @click.prevent="like(scopedProps.message.id)">
+        <button
+          v-if="!scopedProps.me && scopedProps.message.type === 'text'"
+          @click.prevent="like(scopedProps.message.id)"
+        >
           👍
         </button>
       </template>
-      <template v-slot:text-message-body="scopedProps"> 
+      <template v-slot:text-message-body="scopedProps">
         <p class="sc-message--text-content" v-html="scopedProps.messageText"></p>
-        <p v-if="scopedProps.message.data.meta" class='sc-message--meta' :style="{color: scopedProps.messageColors.color}">{{scopedProps.message.data.meta}}</p>
-        <p v-if="scopedProps.message.isEdited || scopedProps.message.liked" class='sc-message--edited'>
+        <p
+          v-if="scopedProps.message.data.meta"
+          class="sc-message--meta"
+          :style="{color: scopedProps.messageColors.color}"
+        >
+          {{ scopedProps.message.data.meta }}
+        </p>
+        <p
+          v-if="scopedProps.message.isEdited || scopedProps.message.liked"
+          class="sc-message--edited"
+        >
           <template v-if="scopedProps.message.isEdited">✎</template>
           <template v-if="scopedProps.message.liked">👍</template>
         </p>
       </template>
-      <template v-slot:system-message-body="{ message }">
-        [System]: {{message.text}}
-      </template>
+      <template v-slot:system-message-body="{message}"> [System]: {{ message.text }} </template>
     </beautiful-chat>
-    <p class="text-center toggle">
-      <a
-        :style="{color: linkColor}"
-        @click.prevent="openChat()"
-        href="#"
-        v-if="!isChatOpen"
-      >Open the chat window</a>
-      <a
-        :style="{color: linkColor}"
-        @click.prevent="closeChat()"
-        href="#"
-        v-else
-      >Close the chat window</a>
-    </p>
-    <p class="text-center colors">
-      <a
-        :style="{background: availableColors.blue.launcher.bg}"
-        @click.prevent="setColor('blue')"
-        href="#"
-      >Blue</a>
-      <a
-        :style="{background: availableColors.red.launcher.bg}"
-        @click.prevent="setColor('red')"
-        href="#"
-      >Red</a>
-      <a
-        :style="{background: availableColors.green.launcher.bg}"
-        @click.prevent="setColor('green')"
-        href="#"
-      >Green</a>
-      <a
-        :style="{background: availableColors.dark.launcher.bg}"
-        @click.prevent="setColor('dark')"
-        href="#"
-      >Dark</a>
-    </p>
-    <v-dialog/>
-    <p class="text-center messageStyling">
-      <label>Message styling enabled?
-        <input
-          @change="messageStylingToggled"
-          checked
-          type="checkbox"
-        >
-      </label>
-      <a
-        @click.prevent="showStylingInfo()"
-        href="#"
-      >info</a>
-    </p>
-    <TestArea
-      :chosenColor="chosenColor"
-      :colors="colors"
-      :messageStyling="messageStyling"
-      :onMessage="sendMessage"
-      :onTyping="handleTyping"
-    />
-    <Footer
-      :chosenColor="chosenColor"
-      :colors="colors"
-    />
   </div>
 </template>
 
@@ -120,17 +71,14 @@ import TestArea from './TestArea.vue'
 import availableColors from './colors'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    Header,
-    Footer,
-    TestArea
+    Header
   },
   data() {
     return {
       participants: chatParticipants,
-      titleImageUrl:
-        'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+      titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
       messageList: messageHistory,
       newMessagesCount: 0,
       isChatOpen: false,
@@ -140,31 +88,63 @@ export default {
       chosenColor: null,
       alwaysScrollToBottom: true,
       messageStyling: true,
-      userIsTyping: false
+      userIsTyping: false,
+      chats: [
+        {
+          id: 2,
+          name: 'Juan Mendoza',
+          lastMessage: 'This is a test of multiple chats 2',
+          datetime: '2020-10-28 16:28:47',
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+        },
+        {
+          id: 3,
+          name: 'Tulio Mendoza',
+          lastMessage: 'This is a test of multiple chats 3',
+          datetime: '2020-10-26 16:28:47',
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+        },
+        {
+          id: 1,
+          name: 'Eric Mendoza',
+          lastMessage: 'This is a test of multiple chats',
+          datetime: '2020-10-14 00:28:47',
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+        },
+
+
+      ]
+    }
+  },
+  computed: {
+    linkColor() {
+      return this.chosenColor === 'dark' ? this.colors.sentMessage.text : this.colors.launcher.bg
+    },
+    backgroundColor() {
+      return this.chosenColor === 'dark' ? this.colors.messageList.bg : '#fff'
     }
   },
   created() {
     this.setColor('blue')
   },
+  mounted() {
+    this.messageList.forEach((x) => (x.liked = false))
+  },
   methods: {
     sendMessage(text) {
       if (text.length > 0) {
-        this.newMessagesCount = this.isChatOpen
-          ? this.newMessagesCount
-          : this.newMessagesCount + 1
+        this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
         this.onMessageWasSent({
           author: 'support',
           type: 'text',
           id: Math.random(),
-          data: { text }
+          data: {text}
         })
       }
     },
     handleTyping(text) {
       this.showTypingIndicator =
-        text.length > 0
-          ? this.participants[this.participants.length - 1].id
-          : ''
+        text.length > 0 ? this.participants[this.participants.length - 1].id : ''
     },
     onMessageWasSent(message) {
       this.messageList = [...this.messageList, Object.assign({}, message, {id: Math.random()})]
@@ -194,35 +174,22 @@ export default {
       this.$root.$emit('onType')
       this.userIsTyping = true
     },
-    editMessage(message){
-      const m = this.messageList.find(m => m.id === message.id);
-      m.isEdited = true;
-      m.data.text = message.data.text;
+    editMessage(message) {
+      const m = this.messageList.find((m) => m.id === message.id)
+      m.isEdited = true
+      m.data.text = message.data.text
     },
-    removeMessage(message){
-      const m = this.messageList.find(m => m.id === message.id);
-      m.type = 'system';
-      m.data.text = 'This message has been removed';
+    removeMessage(message) {
+      const m = this.messageList.find((m) => m.id === message.id)
+      m.type = 'system'
+      m.data.text = 'This message has been removed'
     },
-    like(id){
-      const m = this.messageList.findIndex(m => m.id === id);
-      var msg = this.messageList[m];
-      msg.liked = !msg.liked;
-      this.$set(this.messageList, m, msg);
+    like(id) {
+      const m = this.messageList.findIndex((m) => m.id === id)
+      var msg = this.messageList[m]
+      msg.liked = !msg.liked
+      this.$set(this.messageList, m, msg)
     }
-  },
-  computed: {
-    linkColor() {
-      return this.chosenColor === 'dark'
-        ? this.colors.sentMessage.text
-        : this.colors.launcher.bg
-    },
-    backgroundColor() {
-      return this.chosenColor === 'dark' ? this.colors.messageList.bg : '#fff'
-    }
-  },
-  mounted(){
-    this.messageList.forEach(x=>x.liked = false);
   }
 }
 </script>
@@ -235,6 +202,12 @@ body {
 
 * {
   font-family: Avenir Next, Helvetica Neue, Helvetica, sans-serif;
+}
+
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .demo-description {

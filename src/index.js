@@ -1,7 +1,8 @@
 import Launcher from './Launcher.vue'
+import ChatMenu from './menu/ChatMenu.vue'
 import VTooltip from 'v-tooltip'
 
-const defaultComponentName = 'BeautifulChat'
+const defaultComponentName = 'BeautifulChat';
 
 const Plugin = {
   install(Vue, options = {}) {
@@ -12,10 +13,10 @@ const Plugin = {
       return
     }
 
-    this.installed = true
-    this.event = new Vue()
-    this.dynamicContainer = null
-    this.componentName = options.componentName || defaultComponentName
+    this.installed = true;
+    this.event = new Vue();
+    this.dynamicContainer = null;
+    this.componentName = options.componentName || defaultComponentName;
     /**
      * Plugin API
      */
@@ -27,7 +28,8 @@ const Plugin = {
     /**
      * Sets custom component name (if provided)
      */
-    Vue.component(this.componentName, Launcher)
+    Vue.component(this.componentName, Launcher);
+    Vue.component('ChatMenu', ChatMenu);
     Vue.use(VTooltip)
   }
 }
