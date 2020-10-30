@@ -4,7 +4,6 @@
     <chat-menu
         :chats="chats"
         :always-scroll-to-bottom="alwaysScrollToBottom"
-        :close="closeChat"
         :colors="colors"
         :is-open="isChatOpen"
         :message-list="messageList"
@@ -12,6 +11,7 @@
         :new-messages-count="newMessagesCount"
         :on-message-was-sent="onMessageWasSent"
         :open="openChat"
+        :opened-chat="openedChat"
         :participants="participants"
         :show-launcher="true"
         :show-emoji="true"
@@ -26,6 +26,7 @@
         @onType="handleOnType"
         @edit="editMessage"
         @remove="removeMessage"
+        @opened-chat="openNewChat"
     >
       <template v-slot:text-message-toolbox="scopedProps">
         <button
@@ -125,10 +126,10 @@ export default {
   },
   data() {
     return {
-      participants: chatParticipants,
+      participants: chatParticipants[0],
       titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-      messageList: messageHistory,
-      newMessagesCount: 0,
+      messageList: messageHistory[0],
+      newMessagesCount: 3,
       isChatOpen: false,
       showTypingIndicator: '',
       colors: null,
@@ -137,27 +138,40 @@ export default {
       alwaysScrollToBottom: true,
       messageStyling: true,
       userIsTyping: false,
+      openedChat: null,
       chats: [
         {
+          datetime: '2020-10-29 16:28:47',
           id: 2,
-          name: 'Juan Mendoza',
+          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
           lastMessage: 'This is a test of multiple chats 2',
+          messageList: messageHistory[0],
+          name: 'Juan Mendoza',
+          newMessagesCount: 3,
+          participants: chatParticipants[0],
+          title: '',
+        },
+        {
           datetime: '2020-10-28 16:28:47',
-          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-        },
-        {
           id: 3,
-          name: 'Tulio Mendoza',
-          lastMessage: 'This is a test of multiple chats 3',
-          datetime: '2020-10-26 16:28:47',
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+          lastMessage: 'This is a test of multiple chats 3',
+          messageList: messageHistory[1],
+          name: 'Tulio Mendoza',
+          newMessagesCount: 1,
+          participants: chatParticipants[1],
+          title: '',
         },
         {
-          id: 1,
-          name: 'Eric Mendoza',
-          lastMessage: 'This is a test of multiple chats',
           datetime: '2020-10-14 00:28:47',
+          id: 1,
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+          lastMessage: 'This is a test of multiple chats with a really long text to test it.',
+          messageList: messageHistory[2],
+          name: 'Eric Mendoza',
+          newMessagesCount: 0,
+          participants: chatParticipants[2],
+          title: '',
         },
 
 
@@ -198,8 +212,12 @@ export default {
       this.messageList = [...this.messageList, Object.assign({}, message, {id: Math.random()})]
     },
     openChat() {
-      this.isChatOpen = true
+      this.isChatOpen = true;
       this.newMessagesCount = 0
+    },
+    openNewChat(chat) {
+      this.openedChat = chat;
+      this.openedChat.newMessagesCount = 0
     },
     closeChat() {
       this.isChatOpen = false
@@ -256,6 +274,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  max-height: 100vh;
 }
 
 .demo-description {

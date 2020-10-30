@@ -4,6 +4,9 @@
       <ChatMenuItem
           v-for="(chat, chatIndex) in chats"
           :chat="chat"
+          :active="active(chat)"
+          :colors="colors"
+          @opened-chat="$emit('opened-chat', $event)"
       >
         <template #chat-item="scopedProps">
 
@@ -26,7 +29,23 @@
       chats: {
         type: Array,
         required: true,
+      },
+      openedChat: {
+        type: Object,
+        default: null,
+      },
+      colors: {
+        type: Object,
+        required: true
+      },
+    },
+    methods: {
+      active(chat) {
+        if (!this.openedChat) return false;
+        return this.openedChat.id === chat.id;
       }
+    },
+    computed: {
     },
     components: {
       ChatMenuItem

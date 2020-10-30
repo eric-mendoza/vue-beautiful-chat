@@ -33,7 +33,11 @@ export default {
     userList: {
       bg: '#fff',
       text: '#212121'
-    }
+    },
+    alert: {
+      bg: '#ff4646',
+      text: '#fff'
+    },
   },
   green: {
     header: {
@@ -69,7 +73,11 @@ export default {
     userList: {
       bg: '#fff',
       text: '#212121'
-    }
+    },
+    alert: {
+      bg: '#ff4646',
+      text: '#fff'
+    },
   },
   blue: {
     header: {
@@ -105,7 +113,11 @@ export default {
     userList: {
       bg: '#fff',
       text: '#212121'
-    }
+    },
+    alert: {
+      bg: '#ff4646',
+      text: '#fff'
+    },
   },
   dark: {
     header: {
@@ -141,7 +153,11 @@ export default {
     userList: {
       bg: '#2c3e50',
       text: '#ecf0f1'
-    }
+    },
+    alert: {
+      bg: '#ff4646',
+      text: '#fff'
+    },
   }
 }
 

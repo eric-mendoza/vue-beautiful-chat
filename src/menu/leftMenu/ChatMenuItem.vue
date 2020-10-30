@@ -1,5 +1,9 @@
 <template>
-  <div class="chat-menu-item--container" :class="active ? 'active' : ''">
+  <div
+      class="chat-menu-item--container"
+      :class="active ? 'active' : ''"
+      @click="openedNewChat"
+  >
     <div class="overlay"></div>
     <slot name="chat-item" :chat="chat">
       <div class="chat-menu-item">
@@ -14,8 +18,13 @@
                 {{ time }}
               </div>
             </div>
-            <div class="chat-menu-item--message">
-              {{ chat.lastMessage }}
+            <div class="chat-menu-item--body--content">
+              <div class="chat-menu-item--message">
+                {{ chat.lastMessage }}
+              </div>
+              <div v-if="chat.newMessagesCount > 0" class="chat-menu-item--alert" :style="{background: colors.alert.bg, color: colors.alert.text}">
+                {{ chat.newMessagesCount }}
+              </div>
             </div>
           </div>
         </div>
@@ -38,6 +47,15 @@
       active: {
         type: Boolean,
         default: false,
+      },
+      colors: {
+        type: Object,
+        required: true
+      },
+    },
+    methods: {
+      openedNewChat() {
+        this.$emit('opened-chat', this.chat);
       }
     },
     computed: {
@@ -101,11 +119,28 @@
     display: flex;
   }
 
+  .chat-menu-item--body--content {
+    display: flex;
+  }
+
   .chat-menu-item--name {
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     flex: 1;
+  }
+
+  .chat-menu-item--alert {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    margin: auto;
+    font-size: 12px;
+    font-weight: 500;
   }
 
   .chat-menu-item--time {
@@ -117,6 +152,7 @@
   .chat-menu-item--message {
     color: rgba(255, 255, 255, 0.70);
     font-size: 14px;
+    flex: 1;
   }
 
   .chat-menu-item--hr {

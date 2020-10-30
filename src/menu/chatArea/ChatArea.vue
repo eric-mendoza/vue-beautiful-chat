@@ -70,6 +70,7 @@
   import MessageList from './../../MessageList.vue'
   import UserInput from './../../UserInput.vue'
   import UserList from './../../UserList.vue'
+
   export default {
     name: "ChatArea",
     props: {
@@ -100,10 +101,6 @@
       messageList: {
         type: Array,
         default: () => []
-      },
-      isOpen: {
-        type: Boolean,
-        default: () => false
       },
       placeholder: {
         type: String,
@@ -149,9 +146,7 @@
     },
     computed: {
       messages() {
-        let messages = this.messageList
-
-        return messages
+        return this.messageList;
       }
     },
     methods: {

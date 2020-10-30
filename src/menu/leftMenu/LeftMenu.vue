@@ -16,6 +16,9 @@
     <div class="left-menu-list">
       <ChatsList
           :chats="chats"
+          :opened-chat="openedChat"
+          :colors="colors"
+          @opened-chat="$emit('opened-chat', $event)"
       >
         <template #chats="scopedProps">
 
@@ -46,6 +49,10 @@
       chats: {
         type: Array,
         required: true
+      },
+      openedChat: {
+        type: Object,
+        default: null,
       },
     },
   }

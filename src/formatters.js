@@ -10,7 +10,7 @@ export function time(date) {
     return new Intl.DateTimeFormat([]).format(date);
   }
 
-  if (interval > 1) {
+  if (interval >= 1) {
     return new Intl.DateTimeFormat([], {weekday: 'long'}).format(date);
   }
 

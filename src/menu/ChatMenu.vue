@@ -4,6 +4,8 @@
     <LeftMenu
       :colors="colors"
       :chats="chats"
+      :opened-chat="openedChat"
+      @opened-chat="$emit('opened-chat', $event)"
     >
 
     </LeftMenu>
@@ -11,11 +13,11 @@
     
     <!--  Chat area  -->
     <ChatArea
-        :message-list="messageList"
+        v-if="openedChat"
+        :message-list="openedChat.messageList"
         :on-user-input-submit="onMessageWasSent"
-        :participants="participants"
+        :participants="openedChat.participants"
         :title="chatWindowTitle"
-        :is-open="isOpen"
         :show-emoji="showEmoji"
         :show-file="showFile"
         :show-edition="showEdition"
@@ -28,7 +30,6 @@
         :colors="colors"
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :message-styling="messageStyling"
-        @close="close"
         @scrollToTop="$emit('scrollToTop')"
         @onType="$emit('onType')"
         @edit="$emit('edit', $event)"
@@ -117,9 +118,9 @@
         type: Function,
         required: true
       },
-      close: {
-        type: Function,
-        required: true
+      openedChat: {
+        type: Object,
+        default: null,
       },
       showFile: {
         type: Boolean,
@@ -136,10 +137,6 @@
       participants: {
         type: Array,
         required: true
-      },
-      title: {
-        type: String,
-        default: () => ''
       },
       titleImageUrl: {
         type: String,
@@ -167,7 +164,7 @@
       },
       alwaysScrollToBottom: {
         type: Boolean,
-        default: () => false
+        default: () => true
       },
       messageStyling: {
         type: Boolean,
@@ -201,7 +198,10 @@
           'text' in c.receivedMessage &&
           'userInput' in c &&
           'bg' in c.userInput &&
-          'text' in c.userInput,
+          'text' in c.userInput &&
+          'alert' in c &&
+          'bg' in c.alert &&
+          'text' in c.alert,
         default: function () {
           return {
             header: {
@@ -233,7 +233,11 @@
             userInput: {
               bg: '#f4f7f9',
               text: '#565867'
-            }
+            },
+            alert: {
+              bg: '#ff4646',
+              text: '#fff'
+            },
           }
         }
       },
@@ -246,12 +250,12 @@
     methods: {},
     computed: {
       chatWindowTitle() {
-        if (this.title !== '') return this.title
+        if (this.openedChat.title !== '') return this.openedChat.title;
 
-        if (this.participants.length === 0) return 'You'
-        if (this.participants.length > 1) return 'You, ' + this.participants[0].name + ' & others'
+        if (this.openedChat.participants.length === 0) return 'You';
+        if (this.openedChat.participants.length > 1) return 'You, ' + this.openedChat.participants[0].name + ' & others';
 
-        return 'You & ' + this.participants[0].name
+        return 'You & ' + this.openedChat.participants[0].name;
       }
     },
     watch: {

@@ -164,7 +164,7 @@ export default {
   margin: auto;
   padding-bottom: 10px;
   display: flex;
-  .sc-message--edited {
+  .sc-message-windowed--edited {
     opacity: 0.7;
     word-wrap: normal;
     font-size: xx-small;
