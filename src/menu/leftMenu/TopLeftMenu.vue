@@ -31,7 +31,11 @@
 
   .left-menu-top {
     display: flex;
-    padding: 20px;
     justify-content: center;
+    min-height: 75px;
+    padding: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    box-sizing: border-box;
   }
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <div class="sc-header" :style="{background: colors.header.bg, color: colors.header.text}">
+  <div
+      class="sc-header"
+      :class="rounded ? 'top-rounded' : ''"
+      :style="{background: colors.header.bg, color: colors.header.text}"
+  >
     <slot>
       <img v-if="titleImageUrl" class="sc-header--img" :src="titleImageUrl" alt="" />
       <div v-if="!disableUserListToggle" class="sc-header--title enabled" @click="toggleUserList">
@@ -37,6 +41,10 @@ export default {
     colors: {
       type: Object,
       required: true
+    },
+    rounded: {
+      type: Boolean,
+      default: true,
     }
   },
   data() {
@@ -59,13 +67,16 @@ export default {
 <style scoped>
 .sc-header {
   min-height: 75px;
-  border-top-left-radius: 9px;
-  border-top-right-radius: 9px;
   padding: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   position: relative;
   box-sizing: border-box;
   display: flex;
+}
+
+.top-rounded {
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
 }
 
 .sc-header--img {

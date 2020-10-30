@@ -4,6 +4,14 @@ export default {
       bg: '#D32F2F',
       text: '#fff'
     },
+    leftMenu: {
+      bg: '#D32F2F',
+      text: '#ffffff'
+    },
+    topLeftMenu: {
+      bg: '#af3232',
+      text: '#ffffff'
+    },
     launcher: {
       bg: '#D32F2F'
     },
@@ -31,6 +39,14 @@ export default {
     header: {
       bg: '#388E3C',
       text: '#fff'
+    },
+    leftMenu: {
+      bg: '#388E3C',
+      text: '#ffffff'
+    },
+    topLeftMenu: {
+      bg: '#3a843e',
+      text: '#ffffff'
     },
     launcher: {
       bg: '#388E3C'
@@ -60,6 +76,14 @@ export default {
       bg: '#4e8cff',
       text: '#ffffff'
     },
+    leftMenu: {
+      bg: '#4e8cff',
+      text: '#ffffff'
+    },
+    topLeftMenu: {
+      bg: '#3e70cc',
+      text: '#ffffff'
+    },
     launcher: {
       bg: '#4e8cff'
     },
@@ -87,6 +111,14 @@ export default {
     header: {
       bg: '#34495e',
       text: '#ecf0f1'
+    },
+    leftMenu: {
+      bg: '#34495e',
+      text: '#ffffff'
+    },
+    topLeftMenu: {
+      bg: '#283f54',
+      text: '#ffffff'
     },
     launcher: {
       bg: '#34495e'

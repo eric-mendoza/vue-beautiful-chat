@@ -11,22 +11,171 @@
     
     <!--  Chat area  -->
     <ChatArea
-      :colors="colors"
+        :message-list="messageList"
+        :on-user-input-submit="onMessageWasSent"
+        :participants="participants"
+        :title="chatWindowTitle"
+        :is-open="isOpen"
+        :show-emoji="showEmoji"
+        :show-file="showFile"
+        :show-edition="showEdition"
+        :show-deletion="showDeletion"
+        :show-confirmation-deletion="showConfirmationDeletion"
+        :confirmation-deletion-message="confirmationDeletionMessage"
+        :show-header="showHeader"
+        :placeholder="placeholder"
+        :show-typing-indicator="showTypingIndicator"
+        :colors="colors"
+        :always-scroll-to-bottom="alwaysScrollToBottom"
+        :message-styling="messageStyling"
+        @close="close"
+        @scrollToTop="$emit('scrollToTop')"
+        @onType="$emit('onType')"
+        @edit="$emit('edit', $event)"
+        @remove="$emit('remove', $event)"
     >
-
+      <template v-slot:header>
+        <slot name="header"> </slot>
+      </template>
+      <template v-slot:user-avatar="scopedProps">
+        <slot name="user-avatar" :user="scopedProps.user" :message="scopedProps.message"> </slot>
+      </template>
+      <template v-slot:text-message-body="scopedProps">
+        <slot
+            name="text-message-body"
+            :message="scopedProps.message"
+            :messageText="scopedProps.messageText"
+            :messageColors="scopedProps.messageColors"
+            :me="scopedProps.me"
+        >
+        </slot>
+      </template>
+      <template v-slot:system-message-body="scopedProps">
+        <slot name="system-message-body" :message="scopedProps.message"> </slot>
+      </template>
+      <template v-slot:text-message-toolbox="scopedProps">
+        <slot name="text-message-toolbox" :message="scopedProps.message" :me="scopedProps.me">
+        </slot>
+      </template>
     </ChatArea>
   </div>
 </template>
 
 <script>
+  import store from './../store/'
   import LeftMenu from "./leftMenu/LeftMenu";
-  import ChatArea from "./ChatArea";
+  import ChatArea from "./chatArea/ChatArea";
+  import CloseIcon from './../assets/close-icon.png'
+  import OpenIcon from './../assets/logo-no-bg.svg'
   export default {
     name: "ChatMenu",
     props: {
       chats: {
         type: Array,
         default: () => []
+      },
+      icons: {
+        type: Object,
+        default: function () {
+          return {
+            open: {
+              img: OpenIcon,
+              name: 'default'
+            },
+            close: {
+              img: CloseIcon,
+              name: 'default'
+            }
+          }
+        }
+      },
+      showEmoji: {
+        type: Boolean,
+        default: false
+      },
+      showEdition: {
+        type: Boolean,
+        default: false
+      },
+      showDeletion: {
+        type: Boolean,
+        default: false
+      },
+      showConfirmationDeletion: {
+        type: Boolean,
+        default: false
+      },
+      confirmationDeletionMessage: {
+        type: String,
+        default: 'Do you really want to delete the message?'
+      },
+      isOpen: {
+        type: Boolean,
+        required: true
+      },
+      open: {
+        type: Function,
+        required: true
+      },
+      close: {
+        type: Function,
+        required: true
+      },
+      showFile: {
+        type: Boolean,
+        default: false
+      },
+      showLauncher: {
+        type: Boolean,
+        default: true
+      },
+      showHeader: {
+        type: Boolean,
+        default: true
+      },
+      participants: {
+        type: Array,
+        required: true
+      },
+      title: {
+        type: String,
+        default: () => ''
+      },
+      titleImageUrl: {
+        type: String,
+        default: () => ''
+      },
+      onMessageWasSent: {
+        type: Function,
+        required: true
+      },
+      messageList: {
+        type: Array,
+        default: () => []
+      },
+      newMessagesCount: {
+        type: Number,
+        default: () => 0
+      },
+      placeholder: {
+        type: String,
+        default: 'Write a message...'
+      },
+      showTypingIndicator: {
+        type: String,
+        default: () => ''
+      },
+      alwaysScrollToBottom: {
+        type: Boolean,
+        default: () => false
+      },
+      messageStyling: {
+        type: Boolean,
+        default: () => false
+      },
+      disableUserListToggle: {
+        type: Boolean,
+        default: false
       },
       colors: {
         type: Object,
@@ -64,7 +213,7 @@
               text: '#ffffff'
             },
             topLeftMenu: {
-              bg: '#4485ec',
+              bg: '#3e70cc',
               text: '#ffffff'
             },
             launcher: {
@@ -95,8 +244,28 @@
       }
     },
     methods: {},
-    computed: {},
-    watch: {},
+    computed: {
+      chatWindowTitle() {
+        if (this.title !== '') return this.title
+
+        if (this.participants.length === 0) return 'You'
+        if (this.participants.length > 1) return 'You, ' + this.participants[0].name + ' & others'
+
+        return 'You & ' + this.participants[0].name
+      }
+    },
+    watch: {
+      $props: {
+        deep: true,
+        immediate: true,
+        handler(props) {
+          // TODO: optimize
+          for (const prop in props) {
+            store.setState(prop, props[prop])
+          }
+        }
+      }
+    },
     components: {
       LeftMenu,
       ChatArea
@@ -110,6 +279,7 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+    flex: 1 1 auto;
   }
 
 

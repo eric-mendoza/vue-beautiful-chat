@@ -16,6 +16,7 @@
       :show-deletion="showDeletion"
       :show-confirmation-deletion="showConfirmationDeletion"
       :confirmation-deletion-message="confirmationDeletionMessage"
+      :window-chat="windowChat"
       @remove="$emit('remove', message)"
     >
       <template v-slot:user-avatar="scopedProps">
@@ -101,6 +102,10 @@ export default {
     confirmationDeletionMessage: {
       type: String,
       required: true
+    },
+    windowChat: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {

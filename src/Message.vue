@@ -1,5 +1,5 @@
 <template>
-  <div :id="message.id" class="sc-message">
+  <div :id="message.id" :class="windowChat ? 'sc-message-windowed' : 'sc-message' ">
     <div
       class="sc-message--content"
       :class="{
@@ -71,6 +71,7 @@ import EmojiMessage from './messages/EmojiMessage.vue'
 import TypingMessage from './messages/TypingMessage.vue'
 import SystemMessage from './messages/SystemMessage.vue'
 import chatIcon from './assets/chat-icon.svg'
+import {mapState} from './store/'
 
 export default {
   components: {
@@ -112,6 +113,10 @@ export default {
     confirmationDeletionMessage: {
       type: String,
       required: true
+    },
+    windowChat: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -135,13 +140,26 @@ export default {
         color: this.colors.sentMessage.text,
         backgroundColor: this.colors.sentMessage.bg
       }
-    }
+    },
   }
 }
 </script>
 
 <style lang="scss">
 .sc-message {
+  width: 95%;
+  margin: auto;
+  padding-bottom: 10px;
+  display: flex;
+  .sc-message--edited {
+    opacity: 0.7;
+    word-wrap: normal;
+    font-size: xx-small;
+    text-align: center;
+  }
+}
+
+.sc-message-windowed {
   width: 300px;
   margin: auto;
   padding-bottom: 10px;

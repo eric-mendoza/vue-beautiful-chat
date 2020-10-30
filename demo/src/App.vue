@@ -3,8 +3,56 @@
     <Header :chosen-color="chosenColor" :colors="colors" />
     <chat-menu
         :chats="chats"
+        :always-scroll-to-bottom="alwaysScrollToBottom"
+        :close="closeChat"
+        :colors="colors"
+        :is-open="isChatOpen"
+        :message-list="messageList"
+        :message-styling="messageStyling"
+        :new-messages-count="newMessagesCount"
+        :on-message-was-sent="onMessageWasSent"
+        :open="openChat"
+        :participants="participants"
+        :show-launcher="true"
+        :show-emoji="true"
+        :show-file="true"
+        :show-typing-indicator="showTypingIndicator"
+        :show-edition="true"
+        :show-deletion="true"
+        :show-confirmation-deletion="true"
+        :confirmation-deletion-message="'Are you sure? (you can customize this message)'"
+        :title-image-url="titleImageUrl"
+        :disable-user-list-toggle="false"
+        @onType="handleOnType"
+        @edit="editMessage"
+        @remove="removeMessage"
     >
-
+      <template v-slot:text-message-toolbox="scopedProps">
+        <button
+            v-if="!scopedProps.me && scopedProps.message.type === 'text'"
+            @click.prevent="like(scopedProps.message.id)"
+        >
+          👍
+        </button>
+      </template>
+      <template v-slot:text-message-body="scopedProps">
+        <p class="sc-message--text-content" v-html="scopedProps.messageText"></p>
+        <p
+            v-if="scopedProps.message.data.meta"
+            class="sc-message--meta"
+            :style="{color: scopedProps.messageColors.color}"
+        >
+          {{ scopedProps.message.data.meta }}
+        </p>
+        <p
+            v-if="scopedProps.message.isEdited || scopedProps.message.liked"
+            class="sc-message--edited"
+        >
+          <template v-if="scopedProps.message.isEdited">✎</template>
+          <template v-if="scopedProps.message.liked">👍</template>
+        </p>
+      </template>
+      <template v-slot:system-message-body="{message}"> [System]: {{ message.text }} </template>
     </chat-menu>
     <beautiful-chat
       :always-scroll-to-bottom="alwaysScrollToBottom"
