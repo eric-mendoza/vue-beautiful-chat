@@ -25,11 +25,6 @@ export default [
   ],
   [
     {
-      id: 'ericmendoza',
-      name: 'Eric',
-      imageUrl: 'https://avatars2.githubusercontent.com/u/14318275'
-    },
-    {
       id: 'support',
       name: 'Support',
       imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'

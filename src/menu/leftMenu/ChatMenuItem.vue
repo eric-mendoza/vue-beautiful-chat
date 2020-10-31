@@ -8,19 +8,22 @@
     <slot name="chat-item" :chat="chat">
       <div class="chat-menu-item">
         <img v-if="chat.imageUrl" class="chat-menu-item--img" :src="chat.imageUrl" alt="" />
-        <div class="" style="display: flex; flex-direction: column; width: 100%; padding-right: 1em">
+        <div class="chat-menu-item--body--container" style="">
           <div class="chat-menu-item--body">
+            <!--     Chat title and last message time       -->
             <div class="chat-menu-item--body--header">
               <div class="chat-menu-item--name">
-                {{ chat.name }}
+                {{ chatWindowTitle }}
               </div>
               <div class="chat-menu-item--time">
                 {{ time }}
               </div>
             </div>
+
+            <!--      Last message and new message alert      -->
             <div class="chat-menu-item--body--content">
               <div class="chat-menu-item--message">
-                {{ chat.lastMessage }}
+                {{ lastMessage }}
               </div>
               <div v-if="chat.newMessagesCount > 0" class="chat-menu-item--alert" :style="{background: colors.alert.bg, color: colors.alert.text}">
                 {{ chat.newMessagesCount }}
@@ -35,7 +38,7 @@
 </template>
 
 <script>
-  import { time } from "../../formatters";
+  import {chatTitle, time} from "../../formatters";
 
   export default {
     name: "ChatMenuItem",
@@ -61,6 +64,13 @@
     computed: {
       time() {
         return time(this.chat.datetime);
+      },
+      chatWindowTitle() {
+        return chatTitle(this.chat)
+      },
+      lastMessage() {
+        let lastIndex = this.chat.messageList.length - 1;
+        return this.chat.messageList[lastIndex].data.text;
       }
     }
   }
@@ -101,6 +111,14 @@
     flex: 1;
   }
 
+  .chat-menu-item--body--container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 1em;
+    min-width: 0;
+  }
+
   .chat-menu-item--body {
     display: flex;
     flex-direction: column;
@@ -113,6 +131,9 @@
     border-radius: 50%;
     align-self: center;
     padding: 10px;
+    height: 26px;
+    width: 26px;
+    flex: 0 0 auto;
   }
 
   .chat-menu-item--body--header {
@@ -127,32 +148,39 @@
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    flex: 1;
-  }
-
-  .chat-menu-item--alert {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    margin: auto;
-    font-size: 12px;
-    font-weight: 500;
+    flex: 1 1 auto;
+    flex-basis: 0;
   }
 
   .chat-menu-item--time {
     font-size: 12px;
     text-align: right;
+    width: 60px;
     color: rgba(255, 255, 255, 0.70);
+    flex: 0 0 auto;
+  }
+
+  .chat-menu-item--alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    margin: auto;
+    font-size: 12px;
+    font-weight: 500;
+    flex: 0 0 auto;
   }
 
   .chat-menu-item--message {
     color: rgba(255, 255, 255, 0.70);
     font-size: 14px;
-    flex: 1;
+    flex: 1 1 auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .chat-menu-item--hr {

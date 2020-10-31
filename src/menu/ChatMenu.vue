@@ -68,6 +68,7 @@
   import ChatArea from "./chatArea/ChatArea";
   import CloseIcon from './../assets/close-icon.png'
   import OpenIcon from './../assets/logo-no-bg.svg'
+  import {chatTitle} from "../formatters";
   export default {
     name: "ChatMenu",
     props: {
@@ -250,12 +251,7 @@
     methods: {},
     computed: {
       chatWindowTitle() {
-        if (this.openedChat.title !== '') return this.openedChat.title;
-
-        if (this.openedChat.participants.length === 0) return 'You';
-        if (this.openedChat.participants.length > 1) return 'You, ' + this.openedChat.participants[0].name + ' & others';
-
-        return 'You & ' + this.openedChat.participants[0].name;
+        return chatTitle(this.openedChat)
       }
     },
     watch: {
@@ -284,6 +280,7 @@
     width: 100%;
     height: 100%;
     flex: 1 1 auto;
+    min-height: 0;
   }
 
 

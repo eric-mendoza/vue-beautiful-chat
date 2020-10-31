@@ -32,6 +32,7 @@ export default {
   justify-content: space-between;
   margin: 0;
   padding: 0;
+  flex: 0 1 auto;
 }
 
 .demo-header--title {

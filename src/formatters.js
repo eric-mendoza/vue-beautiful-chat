@@ -27,3 +27,23 @@ export function time(date) {
 const firstDateIsPastDayComparedToSecond = (firstDate, secondDate) => {
   return firstDate.setHours(0, 0, 0, 0) - secondDate.setHours(0, 0, 0, 0) < 0;
 };
+
+export function chatTitle(chat) {
+  let language = navigator.language.split('-')[0].toLowerCase();
+  let you = 'You';
+  let others = 'others';
+  let and = ' & ';
+  if (language === 'es') {
+    you = 'Tú';
+    others = ' y otros';
+    and = ' y ';
+  }
+
+  if (chat.title !== '') return chat.title;
+
+  if (chat.participants.length === 0) return you;
+  if (chat.participants.length === 1) return chat.participants[0].name;
+  if (chat.participants.length > 1) return you + ', ' + chat.participants[0].name + and + others;
+
+  return chat.participants[0].name;
+}

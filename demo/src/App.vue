@@ -160,7 +160,7 @@ export default {
           name: 'Tulio Mendoza',
           newMessagesCount: 1,
           participants: chatParticipants[1],
-          title: '',
+          title: 'Work and other people I dont know',
         },
         {
           datetime: '2020-10-14 00:28:47',
@@ -169,7 +169,7 @@ export default {
           lastMessage: 'This is a test of multiple chats with a really long text to test it.',
           messageList: messageHistory[2],
           name: 'Eric Mendoza',
-          newMessagesCount: 0,
+          newMessagesCount: 10,
           participants: chatParticipants[2],
           title: '',
         },
@@ -275,6 +275,7 @@ body {
   flex-direction: column;
   height: 100vh;
   max-height: 100vh;
+  min-height: 30vh;
 }
 
 .demo-description {
