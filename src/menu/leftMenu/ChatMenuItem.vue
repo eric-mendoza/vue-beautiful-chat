@@ -1,7 +1,9 @@
 <template>
   <div
       class="chat-menu-item--container"
-      :class="active ? 'active' : ''"
+      :class="{
+        active: active
+      }"
       @click="openedNewChat"
   >
     <div class="overlay"></div>
@@ -12,20 +14,23 @@
           <div class="chat-menu-item--body">
             <!--     Chat title and last message time       -->
             <div class="chat-menu-item--body--header">
-              <div class="chat-menu-item--name">
+              <div class="chat-menu-item--name" :class="{unread: unreadMessages}">
                 {{ chatWindowTitle }}
               </div>
-              <div class="chat-menu-item--time">
+              <div class="chat-menu-item--time" :class="{unreadTime: unreadMessages}">
                 {{ time }}
               </div>
             </div>
 
             <!--      Last message and new message alert      -->
             <div class="chat-menu-item--body--content">
-              <div class="chat-menu-item--message">
+              <div v-if="someoneIsTyping" class="chat-menu-item--typing">
+                {{ typingMessage }}
+              </div>
+              <div v-else class="chat-menu-item--message" :class="{unreadPreview: unreadMessages}">
                 {{ lastMessage }}
               </div>
-              <div v-if="chat.newMessagesCount > 0" class="chat-menu-item--alert" :style="{background: colors.alert.bg, color: colors.alert.text}">
+              <div v-if="unreadMessages" class="chat-menu-item--alert" :style="{background: colors.alert.bg, color: colors.alert.text}">
                 {{ chat.newMessagesCount }}
               </div>
             </div>
@@ -38,7 +43,7 @@
 </template>
 
 <script>
-  import {chatTitle, time} from "../../formatters";
+  import {chatTitle, time, typingMessage} from "../../formatters";
 
   export default {
     name: "ChatMenuItem",
@@ -70,7 +75,24 @@
       },
       lastMessage() {
         let lastIndex = this.chat.messageList.length - 1;
-        return this.chat.messageList[lastIndex].data.text;
+        let lastMessage = this.chat.messageList[lastIndex].data.text;
+        if (lastMessage) return lastMessage;
+        lastMessage = this.chat.messageList[lastIndex].data.emoji;
+        if (lastMessage) return lastMessage;
+        lastMessage = this.chat.messageList[lastIndex].data.file;
+        if (lastMessage) return '📄 ' + lastMessage.name;
+        return '';
+      },
+      typingMessage() {
+        let typingUser = this.chat.participants.find(user => user.id === this.chat.showTypingIndicator);
+        if (typingUser) return typingUser.name + ' ' + typingMessage();
+        else typingMessage(true);
+      },
+      unreadMessages() {
+        return this.chat.newMessagesCount > 0;
+      },
+      someoneIsTyping() {
+        return this.chat.showTypingIndicator !== '';
       }
     }
   }
@@ -183,9 +205,32 @@
     text-overflow: ellipsis;
   }
 
+  .chat-menu-item--typing {
+    color: rgba(255, 255, 255, 0.70);
+    font-size: 14px;
+    flex: 1 1 auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-style: italic;
+  }
+
   .chat-menu-item--hr {
     margin: 0 1em 0 0 !important;
     width: 100%;
     color: rgba(255, 255, 255, 0.3);
+  }
+
+  .unread {
+    font-weight: 700;
+  }
+
+  .unreadPreview {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .unreadTime {
+    color: rgb(255, 255, 255);
   }
 </style>

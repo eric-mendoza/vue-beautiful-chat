@@ -26,7 +26,7 @@
         :confirmation-deletion-message="confirmationDeletionMessage"
         :show-header="showHeader"
         :placeholder="placeholder"
-        :show-typing-indicator="showTypingIndicator"
+        :show-typing-indicator="openedChat.showTypingIndicator"
         :colors="colors"
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :message-styling="messageStyling"

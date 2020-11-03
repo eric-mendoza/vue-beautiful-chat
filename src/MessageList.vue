@@ -50,6 +50,7 @@
       :show-deletion="showDeletion"
       :show-confirmation-deletion="showConfirmationDeletion"
       :confirmation-deletion-message="confirmationDeletionMessage"
+      :window-chat="windowChat"
     />
   </div>
 </template>

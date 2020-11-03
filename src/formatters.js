@@ -47,3 +47,16 @@ export function chatTitle(chat) {
 
   return chat.participants[0].name;
 }
+
+export function typingMessage(unknown = false) {
+
+  let language = navigator.language.split('-')[0].toLowerCase();
+  let message = 'is typing...';
+  let user = 'Someone';
+
+  if (language === 'es') {
+    message = 'está escribiendo...';
+    user = 'Alguien';
+  }
+  return (unknown ? (user + ' ') : '') + message;
+}

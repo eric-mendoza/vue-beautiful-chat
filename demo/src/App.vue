@@ -1,5 +1,12 @@
 <template>
   <div class="demo-container" :style="{background: backgroundColor}">
+<!--   <TestArea-->
+<!--        :chosenColor="chosenColor"-->
+<!--        :colors="colors"-->
+<!--        :messageStyling="messageStyling"-->
+<!--        :onMessage="sendMessage"-->
+<!--        :onTyping="handleTyping"-->
+<!--    />-->
     <Header :chosen-color="chosenColor" :colors="colors" />
     <chat-menu
         :chats="chats"
@@ -9,14 +16,13 @@
         :message-list="messageList"
         :message-styling="messageStyling"
         :new-messages-count="newMessagesCount"
-        :on-message-was-sent="onMessageWasSent"
+        :on-message-was-sent="onMessageWasSentMultiple"
         :open="openChat"
         :opened-chat="openedChat"
         :participants="participants"
         :show-launcher="true"
         :show-emoji="true"
         :show-file="true"
-        :show-typing-indicator="showTypingIndicator"
         :show-edition="true"
         :show-deletion="true"
         :show-confirmation-deletion="true"
@@ -108,6 +114,7 @@
       </template>
       <template v-slot:system-message-body="{message}"> [System]: {{ message.text }} </template>
     </beautiful-chat>
+
   </div>
 </template>
 
@@ -122,7 +129,8 @@ import availableColors from './colors'
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    TestArea,
   },
   data() {
     return {
@@ -144,33 +152,30 @@ export default {
           datetime: '2020-10-29 16:28:47',
           id: 2,
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-          lastMessage: 'This is a test of multiple chats 2',
           messageList: messageHistory[0],
-          name: 'Juan Mendoza',
           newMessagesCount: 3,
           participants: chatParticipants[0],
+          showTypingIndicator: '',
           title: '',
         },
         {
           datetime: '2020-10-28 16:28:47',
           id: 3,
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-          lastMessage: 'This is a test of multiple chats 3',
           messageList: messageHistory[1],
-          name: 'Tulio Mendoza',
           newMessagesCount: 1,
           participants: chatParticipants[1],
+          showTypingIndicator: 'ericmendoza',
           title: 'Work and other people I dont know',
         },
         {
           datetime: '2020-10-14 00:28:47',
           id: 1,
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-          lastMessage: 'This is a test of multiple chats with a really long text to test it.',
           messageList: messageHistory[2],
-          name: 'Eric Mendoza',
           newMessagesCount: 10,
           participants: chatParticipants[2],
+          showTypingIndicator: '',
           title: '',
         },
 
@@ -210,6 +215,9 @@ export default {
     },
     onMessageWasSent(message) {
       this.messageList = [...this.messageList, Object.assign({}, message, {id: Math.random()})]
+    },
+    onMessageWasSentMultiple(message) {
+      this.openedChat.messageList = [...this.openedChat.messageList, Object.assign({}, message, {id: Math.random()})]
     },
     openChat() {
       this.isChatOpen = true;
