@@ -1,9 +1,9 @@
 {
-  "name": "vue-beautiful-chat",
-  "version": "2.5.0",
-  "description": "A simple and beautiful Vue chat component backend agnostic.",
+  "name": "vue-beautiful-chat-extended",
+  "version": "2.5.1",
+  "description": "A simple and beautiful Vue chat component backend agnostic. The extension includes a full window chat.",
   "main": "./dist/vue-beautiful-chat.umd.min.js",
-  "repository": "https://github.com/mattmezza/vue-beautiful-chat.git",
+  "repository": "https://github.com/eric-mendoza/vue-beautiful-chat",
   "author": "Matteo Merola <mattmezza@gmail.com>",
   "license": "MIT",
   "scripts": {
