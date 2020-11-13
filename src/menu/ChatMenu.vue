@@ -7,7 +7,9 @@
       :opened-chat="openedChat"
       @opened-chat="$emit('opened-chat', $event)"
     >
-
+      <template v-slot:top-left-menu>
+        <slot name="top-left-menu"> </slot>
+      </template>
     </LeftMenu>
 
     

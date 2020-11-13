@@ -156,6 +156,7 @@
     height: 26px;
     width: 26px;
     flex: 0 0 auto;
+    box-sizing: content-box;
   }
 
   .chat-menu-item--body--header {
@@ -203,6 +204,7 @@
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin-right: 2px;
   }
 
   .chat-menu-item--typing {

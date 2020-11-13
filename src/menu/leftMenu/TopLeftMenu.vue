@@ -1,8 +1,10 @@
 <template>
   <div class="left-menu-top" :style="{background: colors.topLeftMenu.bg, color: colors.topLeftMenu.text}">
-    <div class="top-text">
-      <slot name="top-left-menu">Top Left Menu</slot>
-    </div>
+    <slot name="top-left-menu">
+      <div class="top-text">
+        Chat
+      </div>
+    </slot>
   </div>
 </template>
 

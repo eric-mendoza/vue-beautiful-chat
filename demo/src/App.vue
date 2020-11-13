@@ -34,6 +34,9 @@
         @remove="removeMessage"
         @opened-chat="openNewChat"
     >
+      <template v-slot:top-left-menu>
+        Chat
+      </template>
       <template v-slot:text-message-toolbox="scopedProps">
         <button
             v-if="!scopedProps.me && scopedProps.message.type === 'text'"

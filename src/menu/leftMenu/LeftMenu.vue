@@ -8,7 +8,7 @@
         :colors="colors"
     >
       <template v-slot:top-left-menu>
-        VuetifulChat
+        <slot name="top-left-menu"> </slot>
       </template>
     </TopLeftMenu>
 
