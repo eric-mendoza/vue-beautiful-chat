@@ -181,8 +181,6 @@ export default {
           showTypingIndicator: '',
           title: '',
         },
-
-
       ]
     }
   },

@@ -75,6 +75,8 @@
       },
       lastMessage() {
         let lastIndex = this.chat.messageList.length - 1;
+        if (lastIndex < 0) return '';
+
         let lastMessage = this.chat.messageList[lastIndex].data.text;
         if (lastMessage) return lastMessage;
         lastMessage = this.chat.messageList[lastIndex].data.emoji;

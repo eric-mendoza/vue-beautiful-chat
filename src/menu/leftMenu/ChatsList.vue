@@ -14,7 +14,7 @@
       </ChatMenuItem>
     </slot>
     <slot name="no-chats">
-      <div v-if="chats.length === 0" class="sc-message--meta">
+      <div v-if="chats.length === 0" class="no-open-chat sc-message--meta">
         No chats found.
       </div>
     </slot>
@@ -72,5 +72,9 @@
     margin-top: 5px;
     opacity: 0.8;
     text-align: center;
+  }
+
+  .no-open-chat {
+    margin-top: 2rem;
   }
 </style>
