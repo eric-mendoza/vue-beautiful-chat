@@ -164,7 +164,7 @@ export default {
         {
           datetime: '2020-10-28 16:28:47',
           id: 3,
-          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+          imageUrl: 'https://avatars2.githubusercontent.com/u/14318275',
           messageList: messageHistory[1],
           newMessagesCount: 1,
           participants: chatParticipants[1],
@@ -174,7 +174,7 @@ export default {
         {
           datetime: '2020-10-14 00:28:47',
           id: 1,
-          imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+          imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4',
           messageList: messageHistory[2],
           newMessagesCount: 10,
           participants: chatParticipants[2],

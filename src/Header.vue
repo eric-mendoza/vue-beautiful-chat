@@ -5,7 +5,7 @@
       :style="{background: colors.header.bg, color: colors.header.text}"
   >
     <slot>
-      <img v-if="titleImageUrl" class="sc-header--img" :src="titleImageUrl" alt="" />
+      <img v-if="imageUrl" class="sc-header--img" :src="imageUrl" alt="" />
       <div v-if="!disableUserListToggle" class="sc-header--title enabled" @click="toggleUserList">
         {{ title }}
       </div>
@@ -45,6 +45,10 @@ export default {
     rounded: {
       type: Boolean,
       default: true,
+    },
+    imageUrl: {
+      type: String,
+      default: null,
     }
   },
   data() {
@@ -83,6 +87,11 @@ export default {
   border-radius: 50%;
   align-self: center;
   padding: 10px;
+  height: 36px;
+  width: 36px;
+  flex: 0 0 auto;
+  box-sizing: content-box;
+
 }
 
 .sc-header--title {

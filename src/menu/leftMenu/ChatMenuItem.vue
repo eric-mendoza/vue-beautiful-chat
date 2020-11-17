@@ -155,8 +155,8 @@
     border-radius: 50%;
     align-self: center;
     padding: 10px;
-    height: 26px;
-    width: 26px;
+    height: 30px;
+    width: 30px;
     flex: 0 0 auto;
     box-sizing: content-box;
   }

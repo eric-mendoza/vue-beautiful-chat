@@ -5,6 +5,7 @@
         :title="title"
         :colors="colors"
         :rounded="false"
+        :imageUrl="openedChat.imageUrl"
         @close="$emit('close')"
         @userList="handleUserListToggle"
     >
@@ -12,12 +13,12 @@
         <slot name="header"> </slot>
       </template>
     </Header>
-    <UserList v-if="showUserList" :colors="colors" :participants="participants" />
+    <UserList v-if="showUserList" :colors="colors" :participants="openedChat.participants" />
     <MessageList
         v-if="!showUserList"
         :messages="messages"
-        :participants="participants"
-        :show-typing-indicator="showTypingIndicator"
+        :participants="openedChat.participants"
+        :show-typing-indicator="openedChat.showTypingIndicator"
         :colors="colors"
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :show-edition="showEdition"
@@ -86,10 +87,6 @@
         type: Boolean,
         default: true
       },
-      participants: {
-        type: Array,
-        required: true
-      },
       title: {
         type: String,
         required: true
@@ -98,15 +95,7 @@
         type: Function,
         required: true
       },
-      messageList: {
-        type: Array,
-        default: () => []
-      },
       placeholder: {
-        type: String,
-        required: true
-      },
-      showTypingIndicator: {
         type: String,
         required: true
       },
@@ -137,7 +126,11 @@
       confirmationDeletionMessage: {
         type: String,
         required: true
-      }
+      },
+      openedChat: {
+        type: Object,
+        default: null,
+      },
     },
     data() {
       return {
@@ -146,7 +139,7 @@
     },
     computed: {
       messages() {
-        return this.messageList;
+        return this.openedChat.messageList;
       }
     },
     methods: {

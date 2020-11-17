@@ -16,9 +16,8 @@
     <!--  Chat area  -->
     <ChatArea
         v-if="openedChat"
-        :message-list="openedChat.messageList"
+        :opened-chat="openedChat"
         :on-user-input-submit="onMessageWasSent"
-        :participants="openedChat.participants"
         :title="chatWindowTitle"
         :show-emoji="showEmoji"
         :show-file="showFile"
