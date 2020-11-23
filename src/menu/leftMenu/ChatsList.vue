@@ -2,7 +2,7 @@
   <div class="chats-list">
     <slot name="chats" :chats="chats">
       <ChatMenuItem
-          v-for="(chat, chatIndex) in chats"
+          v-for="(chat, chatIndex) in sortedChats"
           :chat="chat"
           :active="active(chat)"
           :colors="colors"
@@ -43,9 +43,25 @@
       active(chat) {
         if (!this.openedChat) return false;
         return this.openedChat.id === chat.id;
+      },
+      compareByDate(a, b) {
+        let dateA = new Date(a.datetime);
+        let dateB = new Date(b.datetime);
+
+        if (dateA > dateB){
+          return -1;
+        }
+        if ( dateA < dateB){
+          return 1;
+        }
+        return 0;
       }
     },
     computed: {
+      sortedChats() {
+        console.debug('%c Sorting chats...', 'background: #228B22; color: #ffffff');
+        return this.chats.sort( this.compareByDate )
+      }
     },
     components: {
       ChatMenuItem

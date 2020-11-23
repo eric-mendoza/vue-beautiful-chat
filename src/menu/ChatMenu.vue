@@ -5,10 +5,22 @@
       :colors="colors"
       :chats="chats"
       :opened-chat="openedChat"
+      :show-contacts-menu="showContactsMenu"
+      :contacts="contacts"
       @opened-chat="$emit('opened-chat', $event)"
+      @close-contacts-menu="$emit('close-contacts-menu')"
+      @create-new-chat="$emit('create-new-chat', $event)"
     >
       <template v-slot:top-left-menu>
         <slot name="top-left-menu"> </slot>
+      </template>
+
+      <template v-slot:contacts-menu>
+        <slot name="contacts-menu"></slot>
+      </template>
+
+      <template v-slot:top-contacts-menu>
+        <slot name="top-contacts-menu"> </slot>
       </template>
     </LeftMenu>
 
@@ -77,6 +89,9 @@
         type: Array,
         default: () => []
       },
+      contacts: {
+        type: Array
+      },
       icons: {
         type: Object,
         default: function () {
@@ -135,6 +150,10 @@
       showHeader: {
         type: Boolean,
         default: true
+      },
+      showContactsMenu: {
+        type: Boolean,
+        default: false,
       },
       participants: {
         type: Array,

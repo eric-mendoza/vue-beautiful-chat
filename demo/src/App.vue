@@ -10,6 +10,7 @@
     <Header :chosen-color="chosenColor" :colors="colors" />
     <chat-menu
         :chats="chats"
+        :contacts="contacts"
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :colors="colors"
         :is-open="isChatOpen"
@@ -25,6 +26,7 @@
         :show-file="true"
         :show-edition="true"
         :show-deletion="true"
+        :show-contacts-menu="showContactsMenu"
         :show-confirmation-deletion="true"
         :confirmation-deletion-message="'Are you sure? (you can customize this message)'"
         :title-image-url="titleImageUrl"
@@ -33,9 +35,17 @@
         @edit="editMessage"
         @remove="removeMessage"
         @opened-chat="openNewChat"
+        @close-contacts-menu="closeContactsMenu"
+        @create-new-chat="createNewChat"
     >
       <template v-slot:top-left-menu>
-        Chat
+        <TopLeftHeader v-model="showContactsMenu"></TopLeftHeader>
+      </template>
+      <template v-slot:contacts-menu>
+        <slot name="contacts-menu"></slot>
+      </template>
+      <template v-slot:top-contacts-menu>
+        <slot name="top-contacts-menu"> </slot>
       </template>
       <template v-slot:text-message-toolbox="scopedProps">
         <button
@@ -128,12 +138,14 @@ import Header from './Header.vue'
 import Footer from './Footer.vue'
 import TestArea from './TestArea.vue'
 import availableColors from './colors'
+import TopLeftHeader from "./TopLeftHeader";
 
 export default {
   name: 'App',
   components: {
     Header,
     TestArea,
+    TopLeftHeader
   },
   data() {
     return {
@@ -142,6 +154,7 @@ export default {
       messageList: messageHistory[0],
       newMessagesCount: 3,
       isChatOpen: false,
+      showContactsMenu: false,
       showTypingIndicator: '',
       colors: null,
       availableColors,
@@ -150,9 +163,10 @@ export default {
       messageStyling: true,
       userIsTyping: false,
       openedChat: null,
+      contacts: chatParticipants[3],
       chats: [
         {
-          datetime: '2020-10-29 16:28:47',
+          datetime: '2020-11-20 09:10:47',
           id: 2,
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
           messageList: messageHistory[0],
@@ -162,7 +176,7 @@ export default {
           title: '',
         },
         {
-          datetime: '2020-10-28 16:28:47',
+          datetime: '2020-11-18 16:28:47',
           id: 3,
           imageUrl: 'https://avatars2.githubusercontent.com/u/14318275',
           messageList: messageHistory[1],
@@ -172,7 +186,7 @@ export default {
           title: 'Work and other people I dont know',
         },
         {
-          datetime: '2020-10-14 00:28:47',
+          datetime: '2020-11-17 00:28:47',
           id: 1,
           imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4',
           messageList: messageHistory[2],
@@ -231,8 +245,28 @@ export default {
     closeChat() {
       this.isChatOpen = false
     },
+    closeContactsMenu() {
+      console.debug('%c Closing contacts menu.', 'background: #228B22; color: #ffffff');
+      this.showContactsMenu = false;
+    },
+    createNewChat(contact) {
+      console.debug('%c Creating new chat with: ' + contact.name, 'background: #228B22; color: #ffffff');
+      this.chats.push(
+        {
+          datetime: this.newFormattedDate(),
+          id: this.chats.length + 1,
+          imageUrl: contact.imageUrl,
+          messageList: [],
+          newMessagesCount: 0,
+          participants: [contact],
+          showTypingIndicator: '',
+          title: '',
+        },
+      );
+      this.showContactsMenu = false;
+    },
     setColor(color) {
-      this.colors = this.availableColors[color]
+      this.colors = this.availableColors[color];
       this.chosenColor = color
     },
     showStylingInfo() {
@@ -264,6 +298,9 @@ export default {
       var msg = this.messageList[m]
       msg.liked = !msg.liked
       this.$set(this.messageList, m, msg)
+    },
+    newFormattedDate() {
+      return (new Date(Date.now() - new Date().getTimezoneOffset()*60*1000)).toISOString().slice(0, 19).replace(/-/g, "-").replace("T", " ");
     }
   }
 }

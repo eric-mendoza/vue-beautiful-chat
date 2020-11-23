@@ -300,7 +300,7 @@ export default {
 }
 
 .sc-user-input--text {
-  width: 300px;
+  width: 100%;
   resize: none;
   border: none;
   outline: none;

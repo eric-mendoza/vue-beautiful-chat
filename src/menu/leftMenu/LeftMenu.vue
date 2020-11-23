@@ -29,17 +29,37 @@
 
     <!--  Bottom section of menu  -->
     <div class="left-menu-bottom"></div>
+
+
+    <!--  Contacts menu  -->
+    <ContactsMenu
+        :show-contacts-menu="showContactsMenu"
+        :colors="colors"
+        :contacts="contacts"
+        @close-contacts-menu="$emit('close-contacts-menu')"
+        @selected-contact="$emit('create-new-chat', $event)"
+    >
+      <template v-slot:contacts-menu>
+        <slot name="contacts-menu"></slot>
+      </template>
+
+      <template v-slot:top-contacts-menu>
+        <slot name="top-contacts-menu"> </slot>
+      </template>
+    </ContactsMenu>
   </div>
 </template>
 
 <script>
   import TopLeftMenu from "./TopLeftMenu";
   import ChatsList from "./ChatsList";
+  import ContactsMenu from "../contacts/ContactsMenu";
   export default {
     name: "LeftMenu",
     components: {
       TopLeftMenu,
-      ChatsList
+      ChatsList,
+      ContactsMenu
     },
     props: {
       colors: {
@@ -54,6 +74,13 @@
         type: Object,
         default: null,
       },
+      showContactsMenu: {
+        type: Boolean,
+        default: false,
+      },
+      contacts: {
+        type: Array
+      }
     },
   }
 </script>
@@ -68,7 +95,6 @@
     height: 100%;
   }
 
-
   .left-menu-list {
     display: flex;
     flex-direction: column;
@@ -79,6 +105,5 @@
     display: flex;
     padding: 20px;
   }
-
 
 </style>
