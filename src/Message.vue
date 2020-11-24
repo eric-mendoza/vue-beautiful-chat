@@ -119,12 +119,17 @@ export default {
       default: true
     }
   },
+  data() {
+    return {
+      defaultPhoto: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+    }
+  },
   computed: {
     authorName() {
       return this.user && this.user.name
     },
     chatImageUrl() {
-      return (this.user && this.user.imageUrl) || chatIcon
+      return (this.user && this.user.imageUrl) || this.defaultPhoto
     },
     messageColors() {
       return this.message.author === 'me' ? this.sentColorsStyle : this.receivedColorsStyle

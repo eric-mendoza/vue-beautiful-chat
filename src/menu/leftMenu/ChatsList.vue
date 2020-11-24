@@ -59,7 +59,7 @@
     },
     computed: {
       sortedChats() {
-        console.debug('%c Sorting chats...', 'background: #228B22; color: #ffffff');
+        // console.debug('%c Sorting chats...', 'background: #228B22; color: #ffffff');
         return this.chats.sort( this.compareByDate )
       }
     },

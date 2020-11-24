@@ -6,6 +6,7 @@
   >
     <slot>
       <img v-if="imageUrl" class="sc-header--img" :src="imageUrl" alt="" />
+      <img v-else class="sc-header--img" :src="defaultPhoto" alt="" />
       <div v-if="!disableUserListToggle" class="sc-header--title enabled" @click="toggleUserList">
         {{ title }}
       </div>
@@ -53,7 +54,8 @@ export default {
   },
   data() {
     return {
-      inUserList: false
+      inUserList: false,
+      defaultPhoto: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
     }
   },
   computed: {

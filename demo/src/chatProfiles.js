@@ -46,5 +46,10 @@ export default [
       name: 'Eric',
       imageUrl: 'https://avatars2.githubusercontent.com/u/14318275'
     },
+    {
+      id: 'martarodriguez',
+      name: 'Marta',
+      imageUrl: ''
+    },
   ]
 ]

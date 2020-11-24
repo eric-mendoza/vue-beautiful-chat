@@ -54,16 +54,18 @@
 
 <style scoped>
   .contacts-menu{
-    height: 100%; /* 100% Full-height */
-    width: 30%; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 1;
     transform: translateX(0%);
-    transition: 200ms ease;
+    transition: 400ms ease;
   }
 
   .contacts-menu.collapsed {
-    transform: translateX(-100%);
+    transform: translateX(-200%);
   }
 
   .contacts-menu--container {

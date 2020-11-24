@@ -10,6 +10,7 @@
     <slot name="chat-item" :chat="chat">
       <div class="chat-menu-item">
         <img v-if="chat.imageUrl" class="chat-menu-item--img" :src="chat.imageUrl" alt="" />
+        <img v-else class="chat-menu-item--img" :src="defaultPhoto" alt="" />
         <div class="chat-menu-item--body--container" style="">
           <div class="chat-menu-item--body">
             <!--     Chat title and last message time       -->
@@ -60,6 +61,11 @@
         type: Object,
         required: true
       },
+    },
+    data() {
+      return {
+        defaultPhoto: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+      }
     },
     methods: {
       openedNewChat() {

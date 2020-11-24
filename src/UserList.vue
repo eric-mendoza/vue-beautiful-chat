@@ -4,7 +4,8 @@
       <tbody>
         <tr v-for="user in participants" :key="user.id">
           <td style="text-align: center;">
-            <img :src="user.imageUrl" class="img-msg" />
+            <img v-if="user.imageUrl" :src="user.imageUrl" class="img-msg"  :alt="user.name + ' photo'"/>
+            <img v-else class="img-msg" :src="defaultPhoto" :alt="user.name + ' photo'" />
           </td>
           <td class="user-element" :style="{color: userListColor.userList.text}">
             {{ user.name }}
@@ -25,6 +26,11 @@ export default {
     colors: {
       type: Object,
       default: () => ({})
+    }
+  },
+  data() {
+    return {
+      defaultPhoto: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
     }
   },
   computed: {

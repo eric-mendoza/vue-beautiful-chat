@@ -93,6 +93,7 @@
     width: 30%;
     min-width: 260px;
     height: 100%;
+    position: relative;
   }
 
   .left-menu-list {
