@@ -4,6 +4,8 @@
       v-if="showHeader"
       :title="title"
       :colors="colors"
+      :show-typing-indicator="showTypingIndicator"
+      :participants="participants"
       @close="$emit('close')"
       @userList="handleUserListToggle"
     >

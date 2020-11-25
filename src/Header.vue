@@ -7,10 +7,14 @@
     <slot>
       <img v-if="imageUrl" class="sc-header--img" :src="imageUrl" alt="" />
       <img v-else class="sc-header--img" :src="defaultPhoto" alt="" />
-      <div v-if="!disableUserListToggle" class="sc-header--title enabled" @click="toggleUserList">
-        {{ title }}
+      <div
+          class="sc-header--title"
+          :class="{enabled: !disableUserListToggle && groupChat}"
+          @click="!disableUserListToggle && groupChat ? toggleUserList() : ''"
+      >
+        <span>{{ title }}</span>
+        <span v-if="metaMessage" class="sc-header--meta" :class="{italic: someoneIsTyping}">{{metaMessage}}</span>
       </div>
-      <div v-else class="sc-header--title">{{ title }}</div>
     </slot>
     <div v-if="showCloseButton" class="sc-header--close-button" @click="$emit('close')">
       <img :src="icons.close.img" :alt="icons.close.name" />
@@ -20,7 +24,9 @@
 
 <script>
 import {mapState} from './store/'
+import {typingMessage} from './formatters';
 import CloseIcon from './assets/close-icon-big.png'
+import dictionary from "./assets/dictionary";
 
 export default {
   props: {
@@ -50,7 +56,15 @@ export default {
     imageUrl: {
       type: String,
       default: null,
-    }
+    },
+    showTypingIndicator: {
+      type: String,
+      required: true
+    },
+    participants: {
+      type: Array,
+      required: true
+    },
   },
   data() {
     return {
@@ -59,7 +73,30 @@ export default {
     }
   },
   computed: {
-    ...mapState(['disableUserListToggle', 'titleImageUrl', 'showCloseButton'])
+    ...mapState(['disableUserListToggle', 'titleImageUrl', 'showCloseButton']),
+    typingMessage() {
+      let typingUser = this.participants.find(user => user.id === this.showTypingIndicator);
+      if (typingUser) return typingUser.name + ' ' + typingMessage();
+      else typingMessage(true);
+    },
+    someoneIsTyping() {
+      return this.showTypingIndicator !== '';
+    },
+    groupChat() {
+      return this.participants.length > 1;
+    },
+    metaMessage() {
+      // Is someone typing?
+      if (this.someoneIsTyping) return this.typingMessage;
+
+      // Is a one-to-one chat?
+      if (!this.groupChat) {
+        // Is he online?
+        if (this.participants[0].online) return dictionary.online;
+      }
+
+      return '';
+    },
   },
   methods: {
     toggleUserList() {
@@ -102,6 +139,9 @@ export default {
   flex: 1;
   user-select: none;
   font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .sc-header--title.enabled {
@@ -133,6 +173,19 @@ export default {
   height: 100%;
   padding: 13px;
   box-sizing: border-box;
+}
+
+.sc-header--meta {
+  color: rgba(255, 255, 255, 0.70);
+  font-size: 14px;
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.italic {
+  font-style: italic;
 }
 
 @media (max-width: 450px) {

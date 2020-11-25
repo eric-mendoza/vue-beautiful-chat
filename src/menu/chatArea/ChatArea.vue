@@ -6,6 +6,8 @@
         :colors="colors"
         :rounded="false"
         :imageUrl="openedChat.imageUrl"
+        :participants="openedChat.participants"
+        :show-typing-indicator="openedChat.showTypingIndicator"
         @close="$emit('close')"
         @userList="handleUserListToggle"
     >

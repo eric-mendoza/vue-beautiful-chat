@@ -53,7 +53,7 @@
 </script>
 
 <style scoped>
-  .contacts-menu{
+  .contacts-menu {
     height: 100%;
     width: 100%;
     left: 0;

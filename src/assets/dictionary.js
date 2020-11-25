@@ -1,22 +1,24 @@
 export default messages();
 
 function messages() {
-  let you = 'You';
-  let others = 'others';
-  let and = ' & ';
-  if (language === 'es') {
-    you = 'Tú';
-    others = ' y otros';
-    and = ' y ';
-  }
-
   let spanish = {
     you: 'Tú',
     and: 'y',
+    others: 'otros',
+    isTyping: 'está escribiendo...',
+    someone: 'Alguien',
+    yesterday: 'ayer',
+    online: 'En línea',
   };
 
   let english = {
-
+    you: 'You',
+    and: 'and',
+    others: '&',
+    isTyping: 'is typing...',
+    someone: 'Someone',
+    yesterday: 'yesterday',
+    online: 'Online',
   };
 
   let language = navigator.language.split('-')[0].toLowerCase();
@@ -25,7 +27,4 @@ function messages() {
   }
 
   else return english;
-
-
-
 }
