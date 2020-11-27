@@ -9,8 +9,7 @@
     <div class="overlay"></div>
     <slot name="chat-item" :chat="chat">
       <div class="chat-menu-item">
-        <img v-if="chat.imageUrl" class="chat-menu-item--img" :src="chat.imageUrl" alt="" />
-        <img v-else class="chat-menu-item--img" :src="defaultPhoto" alt="" />
+        <img class="chat-menu-item--img" :src="chatImage" alt="Chat image" />
         <div class="chat-menu-item--body--container" style="">
           <div class="chat-menu-item--body">
             <!--     Chat title and last message time       -->
@@ -101,7 +100,14 @@
       },
       someoneIsTyping() {
         return this.chat.showTypingIndicator !== '';
-      }
+      },
+      groupChat() {
+        return this.chat.participants.length > 1;
+      },
+      chatImage() {
+        if (!this.groupChat) return this.chat.participants[0].imageUrl || this.defaultPhoto;
+        return this.chat.imageUrl || this.defaultPhoto;
+      },
     }
   }
 </script>

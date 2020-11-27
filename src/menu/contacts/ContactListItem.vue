@@ -6,8 +6,7 @@
     <div class="overlay"></div>
     <slot name="contact-item" :contact="contact">
       <div class="contact-menu-item">
-        <img v-if="contact.imageUrl" class="contact-menu-item--img" :src="contact.imageUrl" alt="" />
-        <img v-else class="contact-menu-item--img" :src="defaultPhoto" alt="" />
+        <img class="contact-menu-item--img" :src="userImage" alt="User image" />
         <div class="contact-menu-item--body--container" style="">
           <div class="contact-menu-item--body">
             <!--     Chat title and last message time       -->
@@ -48,7 +47,11 @@
       }
     },
     computed: {
-
+      userImage() {
+        return this.contact.imageUrl || this.defaultPhoto;
+      },
+    },
+    watch: {
     }
   }
 </script>

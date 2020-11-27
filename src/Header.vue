@@ -5,8 +5,7 @@
       :style="{background: colors.header.bg, color: colors.header.text}"
   >
     <slot>
-      <img v-if="imageUrl" class="sc-header--img" :src="imageUrl" alt="" />
-      <img v-else class="sc-header--img" :src="defaultPhoto" alt="" />
+      <img class="sc-header--img" :src="chatImage" alt="Chat image" />
       <div
           class="sc-header--title"
           :class="{enabled: !disableUserListToggle && groupChat}"
@@ -96,6 +95,11 @@ export default {
       }
 
       return '';
+    },
+    chatImage() {
+      if (!this.groupChat) return this.participants[0].imageUrl || this.defaultPhoto;
+
+      return this.imageUrl || this.defaultPhoto;
     },
   },
   methods: {

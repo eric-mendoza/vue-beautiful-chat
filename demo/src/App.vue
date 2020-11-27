@@ -301,6 +301,13 @@ export default {
     },
     newFormattedDate() {
       return (new Date(Date.now() - new Date().getTimezoneOffset()*60*1000)).toISOString().slice(0, 19).replace(/-/g, "-").replace("T", " ");
+    },
+    changePhoto() {
+      if (this.contacts[3].imageUrl) {
+        this.contacts[3].imageUrl = '';
+        return;
+      }
+      this.contacts[3].imageUrl = 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png';
     }
   }
 }
