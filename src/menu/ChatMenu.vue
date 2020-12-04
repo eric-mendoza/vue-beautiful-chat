@@ -7,9 +7,12 @@
       :opened-chat="openedChat"
       :show-contacts-menu="showContactsMenu"
       :contacts="contacts"
+      :show-profile="showProfile"
+      :profile="profile"
       @opened-chat="$emit('opened-chat', $event)"
       @close-contacts-menu="$emit('close-contacts-menu')"
       @create-new-chat="$emit('create-new-chat', $event)"
+      @close-profile-menu="$emit('close-profile-menu')"
     >
       <template v-slot:top-left-menu>
         <slot name="top-left-menu"> </slot>
@@ -21,6 +24,15 @@
 
       <template v-slot:top-contacts-menu>
         <slot name="top-contacts-menu"> </slot>
+      </template>
+      <template v-slot:top-contacts-back>
+        <slot name="top-contacts-back"></slot>
+      </template>
+      <template v-slot:top-profile-menu>
+        <slot name="top-profile-menu"></slot>
+      </template>
+      <template v-slot:top-profile-back>
+        <slot name="top-profile-back"></slot>
       </template>
     </LeftMenu>
 
@@ -154,6 +166,13 @@
       showContactsMenu: {
         type: Boolean,
         default: false,
+      },
+      showProfile: {
+        type: Boolean,
+        default: false,
+      },
+      profile: {
+        type: Object
       },
       participants: {
         type: Array,

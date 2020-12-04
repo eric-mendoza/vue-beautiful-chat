@@ -21,6 +21,7 @@
         :open="openChat"
         :opened-chat="openedChat"
         :participants="participants"
+        :profile="profile"
         :show-launcher="true"
         :show-emoji="true"
         :show-file="true"
@@ -28,6 +29,7 @@
         :show-deletion="true"
         :show-contacts-menu="showContactsMenu"
         :show-confirmation-deletion="true"
+        :show-profile="showProfile"
         :confirmation-deletion-message="'Are you sure? (you can customize this message)'"
         :title-image-url="titleImageUrl"
         :disable-user-list-toggle="false"
@@ -36,17 +38,25 @@
         @remove="removeMessage"
         @opened-chat="openNewChat"
         @close-contacts-menu="closeContactsMenu"
+        @close-profile-menu="closeProfileMenu"
         @create-new-chat="createNewChat"
     >
       <template v-slot:top-left-menu>
-        <TopLeftHeader v-model="showContactsMenu"></TopLeftHeader>
+        <TopLeftHeader
+            :show-contacts-menu="showContactsMenu"
+            :show-options-menu="showOptionsMenu"
+            @show-contacts="showContactsMenu = $event"
+            @show-options="showOptionsMenu= $event"
+            @open-profile="showProfile = true"
+        />
       </template>
       <template v-slot:contacts-menu>
         <slot name="contacts-menu"></slot>
       </template>
-      <template v-slot:top-contacts-menu>
-        <slot name="top-contacts-menu"> </slot>
-      </template>
+      <template v-slot:top-contacts-menu></template>
+      <template v-slot:top-contacts-back></template>
+      <template v-slot:top-profile-menu></template>
+      <template v-slot:top-profile-back></template>
       <template v-slot:text-message-toolbox="scopedProps">
         <button
             v-if="!scopedProps.me && scopedProps.message.type === 'text'"
@@ -164,6 +174,11 @@ export default {
       userIsTyping: false,
       openedChat: null,
       contacts: chatParticipants[3],
+      showOptionsMenu: false,
+      showProfile: false,
+      profile: {
+        imageUrl: ''
+      },
       chats: [
         {
           datetime: '2020-11-20 09:10:47',
@@ -249,6 +264,10 @@ export default {
       console.debug('%c Closing contacts menu.', 'background: #228B22; color: #ffffff');
       this.showContactsMenu = false;
     },
+    closeProfileMenu() {
+      console.debug('%c Closing profile menu.', 'background: #228B22; color: #ffffff');
+      this.showProfile = false;
+    },
     createNewChat(contact) {
       console.debug('%c Creating new chat with: ' + contact.name, 'background: #228B22; color: #ffffff');
       this.chats.push(
@@ -280,6 +299,7 @@ export default {
       this.messageStyling = e.target.checked
     },
     handleOnType() {
+      console.debug('%c User is typing...', 'background: #228B22; color: #ffffff');
       this.$root.$emit('onType')
       this.userIsTyping = true
     },

@@ -7,7 +7,10 @@
       <div class="contacts-menu--container" >
         <TopContactsMenu :colors="colors" @close-contacts-menu="$emit('close-contacts-menu')">
           <template v-slot:top-contacts-menu>
-            <slot name="top-contacts-menu"> </slot>
+            <slot name="top-contacts-menu"></slot>
+          </template>
+          <template v-slot:top-contacts-back>
+            <slot name="top-contacts-back"></slot>
           </template>
         </TopContactsMenu>
         <div class="contacts-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">

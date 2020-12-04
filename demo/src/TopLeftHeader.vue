@@ -1,11 +1,14 @@
 <template>
   <div class="top-left-header">
     <div class="top-left-header--text">
-      Chat
+      <img class="profile--img" :src="profileImage" alt="Profile image" @click="openProfile" />
     </div>
     <div class="top-left-header--tools">
       <div class="tool-button" @click="showContacts">
         &plus;
+      </div>
+      <div class="tool-button" @click="showMenu">
+        &vellip;
       </div>
     </div>
   </div>
@@ -14,11 +17,27 @@
 <script>
   export default {
     name: "TopLeftHeader",
-    props: ["value"],
+    props: ["profile", "showContactsMenu", "showOptionsMenu"],
+    data() {
+      return {
+        defaultPhoto: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+      }
+    },
     methods: {
       showContacts() {
-        this.$emit('input', !this.value);
+        this.$emit('show-contacts', !this.showContactsMenu);
+      },
+      showMenu() {
+        this.$emit('show-options', !this.showOptionsMenu);
+      },
+      openProfile() {
+        this.$emit('open-profile');
       }
+    },
+    computed: {
+      profileImage() {
+        return (this.profile && this.profile.imageUrl) || this.defaultPhoto;
+      },
     }
   }
 </script>
@@ -55,18 +74,34 @@
   box-sizing: border-box;
   color: #fff;
   background-color: unset;
-  padding: 5px;
+  padding: 8px;
   outline: none;
   font-size: large;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   font-weight: bold;
+  margin-left: 3px;
 }
 
 .tool-button:hover {
-  background-color: rgba(0, 0, 0, 0.27);
-  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
   cursor: pointer;
 }
 
+.tool-button:active {
+  background-color: rgba(0, 0, 0, 0.20);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.profile--img {
+  border-radius: 50%;
+  align-self: center;
+  padding: 10px;
+  height: 40px;
+  width: 40px;
+  flex: 0 0 auto;
+  box-sizing: content-box;
+}
 </style>

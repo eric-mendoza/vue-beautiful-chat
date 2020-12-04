@@ -1,13 +1,13 @@
 <template>
-  <div class="contacts-menu--top" :style="{background: colors.topLeftMenu.bg, color: colors.topLeftMenu.text}">
-    <div class="contacts-menu--top-back" @click="$emit('close-contacts-menu')">
-      <slot name="top-contacts-back">
+  <div class="profile-menu--top" :style="{background: colors.topLeftMenu.bg, color: colors.topLeftMenu.text}">
+    <div class="profile-menu--top-back" @click="$emit('close-profile-menu')">
+      <slot name="top-profile-back">
         &longleftarrow;
       </slot>
     </div>
-    <div class="contacts-menu--top-text">
-      <slot name="top-contacts-menu">
-        Nuevo chat
+    <div class="profile-menu--top-text">
+      <slot name="top-profile-menu">
+        Perfil
       </slot>
     </div>
   </div>
@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    name: "TopContactsMenu",
+    name: "TopProfileMenu",
     props: {
       colors: {
         type: Object,
@@ -29,7 +29,7 @@
 </script>
 
 <style scoped>
-  .contacts-menu--top-text {
+  .profile-menu--top-text {
     color: #fff;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
     flex: 1;
   }
 
-  .contacts-menu--top {
+  .profile-menu--top {
     display: flex;
     justify-content: left;
     align-content: center;
@@ -50,7 +50,7 @@
     box-sizing: border-box;
   }
 
-  .contacts-menu--top-back {
+  .profile-menu--top-back {
     width: 30px;
     color: #fff;
     display: flex;

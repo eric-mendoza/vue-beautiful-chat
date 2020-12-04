@@ -30,7 +30,6 @@
     <!--  Bottom section of menu  -->
     <div class="left-menu-bottom"></div>
 
-
     <!--  Contacts menu  -->
     <ContactsMenu
         :show-contacts-menu="showContactsMenu"
@@ -46,7 +45,25 @@
       <template v-slot:top-contacts-menu>
         <slot name="top-contacts-menu"> </slot>
       </template>
+      <template v-slot:top-contacts-back>
+        <slot name="top-contacts-back"></slot>
+      </template>
     </ContactsMenu>
+
+    <!--  Profile menu  -->
+    <Profile
+        :show-profile="showProfile"
+        :colors="colors"
+        :profile="profile"
+        @close-profile-menu="$emit('close-profile-menu')"
+    >
+      <template v-slot:top-profile-menu>
+        <slot name="top-profile-menu"></slot>
+      </template>
+      <template v-slot:top-profile-back>
+        <slot name="top-profile-back"></slot>
+      </template>
+    </Profile>
   </div>
 </template>
 
@@ -54,9 +71,11 @@
   import TopLeftMenu from "./TopLeftMenu";
   import ChatsList from "./ChatsList";
   import ContactsMenu from "../contacts/ContactsMenu";
+  import Profile from "../profile/Profile";
   export default {
     name: "LeftMenu",
     components: {
+      Profile,
       TopLeftMenu,
       ChatsList,
       ContactsMenu
@@ -77,6 +96,13 @@
       showContactsMenu: {
         type: Boolean,
         default: false,
+      },
+      showProfile: {
+        type: Boolean,
+        default: false,
+      },
+      profile: {
+        type: Object
       },
       contacts: {
         type: Array
