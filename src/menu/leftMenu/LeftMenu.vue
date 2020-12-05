@@ -63,6 +63,12 @@
       <template v-slot:top-profile-back>
         <slot name="top-profile-back"></slot>
       </template>
+      <template v-slot:profile-menu>
+        <slot name="profile-menu"></slot>
+      </template>
+      <template v-slot:profile-menu--body>
+        <slot name="profile-menu--body"></slot>
+      </template>
     </Profile>
   </div>
 </template>

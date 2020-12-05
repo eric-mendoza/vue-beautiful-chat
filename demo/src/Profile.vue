@@ -9,10 +9,7 @@
   export default {
     name: "Profile",
     props: {
-      profile: {
-        required: true,
-        type: Object,
-      }
+
     }
   }
 </script>

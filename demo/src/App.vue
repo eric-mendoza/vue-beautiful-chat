@@ -57,6 +57,10 @@
       <template v-slot:top-contacts-back></template>
       <template v-slot:top-profile-menu></template>
       <template v-slot:top-profile-back></template>
+      <template v-slot:profile-menu></template>
+      <template v-slot:profile-menu--body>
+        <Profile />
+      </template>
       <template v-slot:text-message-toolbox="scopedProps">
         <button
             v-if="!scopedProps.me && scopedProps.message.type === 'text'"
@@ -149,10 +153,12 @@ import Footer from './Footer.vue'
 import TestArea from './TestArea.vue'
 import availableColors from './colors'
 import TopLeftHeader from "./TopLeftHeader";
+import Profile from "./Profile";
 
 export default {
   name: 'App',
   components: {
+    Profile,
     Header,
     TestArea,
     TopLeftHeader

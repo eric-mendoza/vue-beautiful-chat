@@ -14,7 +14,7 @@
           </template>
         </TopProfileMenu>
         <div class="profile-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
-
+          <slot name="profile-menu--body"></slot>
         </div>
       </div>
     </slot>
@@ -75,8 +75,8 @@
   }
 
   .profile-menu--list {
-    display: flex;
-    flex-direction: column;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     flex: 1;
   }
 </style>
