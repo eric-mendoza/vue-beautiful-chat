@@ -6,6 +6,9 @@
       :chats="chats"
       :opened-chat="openedChat"
       :show-contacts-menu="showContactsMenu"
+      :show-new-contact-menu="showNewContactMenu"
+      :show-new-group-menu="showNewGroupMenu"
+      :show-settings="showSettings"
       :contacts="contacts"
       :show-profile="showProfile"
       :profile="profile"
@@ -13,6 +16,9 @@
       @close-contacts-menu="$emit('close-contacts-menu')"
       @create-new-chat="$emit('create-new-chat', $event)"
       @close-profile-menu="$emit('close-profile-menu')"
+      @close-new-contact-menu="$emit('close-new-contact-menu')"
+      @close-new-group-menu="$emit('close-new-group-menu')"
+      @close-settings="$emit('close-settings')"
     >
       <template v-slot:top-left-menu>
         <slot name="top-left-menu"> </slot>
@@ -39,6 +45,42 @@
       </template>
       <template v-slot:profile-menu--body>
         <slot name="profile-menu--body"></slot>
+      </template>
+      <template v-slot:new-contacts-menu>
+        <slot name="new-contact-menu"></slot>
+      </template>
+      <template v-slot:top-new-contacts-menu>
+        <slot name="top-new-contact-menu"> </slot>
+      </template>
+      <template v-slot:top-new-contacts-back>
+        <slot name="top-new-contact-back"></slot>
+      </template>
+      <template v-slot:new-contact-menu--body>
+        <slot name="new-contact-menu--body"></slot>
+      </template>
+      <template v-slot:new-group-menu>
+        <slot name="new-group-menu"></slot>
+      </template>
+      <template v-slot:top-new-group-menu>
+        <slot name="top-new-group-menu"> </slot>
+      </template>
+      <template v-slot:top-new-group-back>
+        <slot name="top-new-group-back"></slot>
+      </template>
+      <template v-slot:new-group-menu--body>
+        <slot name="new-group-menu--body"></slot>
+      </template>
+      <template v-slot:settings>
+        <slot name="settings"></slot>
+      </template>
+      <template v-slot:top-settings>
+        <slot name="top-settings"> </slot>
+      </template>
+      <template v-slot:top-settings-back>
+        <slot name="top-settings-back"></slot>
+      </template>
+      <template v-slot:settings--body>
+        <slot name="settings--body"></slot>
       </template>
     </LeftMenu>
 
@@ -170,6 +212,18 @@
         default: true
       },
       showContactsMenu: {
+        type: Boolean,
+        default: false,
+      },
+      showNewContactMenu: {
+        type: Boolean,
+        default: false
+      },
+      showNewGroupMenu: {
+        type: Boolean,
+        default: false,
+      },
+      showSettings: {
         type: Boolean,
         default: false,
       },

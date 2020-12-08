@@ -70,6 +70,66 @@
         <slot name="profile-menu--body"></slot>
       </template>
     </Profile>
+
+    <!--  New Contact menu  -->
+    <NewContactMenu
+        :show="showNewContactMenu"
+        :colors="colors"
+        @close-new-contact-menu="$emit('close-new-contact-menu')"
+    >
+      <template v-slot:new-contacts-menu>
+        <slot name="new-contacts-menu"></slot>
+      </template>
+      <template v-slot:top-new-contacts-menu>
+        <slot name="top-new-contacts-menu"> </slot>
+      </template>
+      <template v-slot:top-new-contacts-back>
+        <slot name="top-new-contacts-back"></slot>
+      </template>
+      <template v-slot:new-contact-menu--body>
+        <slot name="new-contact-menu--body"></slot>
+      </template>
+    </NewContactMenu>
+
+    <!--  New group menu  -->
+    <NewGroupMenu
+        :show="showNewGroupMenu"
+        :colors="colors"
+        @close-new-group-menu="$emit('close-new-group-menu')"
+    >
+      <template v-slot:new-group-menu>
+        <slot name="new-group-menu"></slot>
+      </template>
+      <template v-slot:top-new-group-menu>
+        <slot name="top-new-group-menu"> </slot>
+      </template>
+      <template v-slot:top-new-group-back>
+        <slot name="top-new-group-back"></slot>
+      </template>
+      <template v-slot:new-group-menu--body>
+        <slot name="new-group-menu--body"></slot>
+      </template>
+    </NewGroupMenu>
+
+    <!--  Settings  -->
+    <Settings
+        :show-settings="showSettings"
+        :colors="colors"
+        @close-settings="$emit('close-settings')"
+    >
+      <template v-slot:settings>
+        <slot name="settings"></slot>
+      </template>
+      <template v-slot:top-settings>
+        <slot name="top-settings"> </slot>
+      </template>
+      <template v-slot:top-settings-back>
+        <slot name="top-settings-back"></slot>
+      </template>
+      <template v-slot:settings--body>
+        <slot name="settings--body"></slot>
+      </template>
+    </Settings>
   </div>
 </template>
 
@@ -78,9 +138,15 @@
   import ChatsList from "./ChatsList";
   import ContactsMenu from "../contacts/ContactsMenu";
   import Profile from "../profile/Profile";
+  import NewContactMenu from "../newContactMenu/NewContactMenu";
+  import NewGroupMenu from "../newGroup/NewGroupMenu";
+  import Settings from "../settings/Settings";
   export default {
     name: "LeftMenu",
     components: {
+      Settings,
+      NewGroupMenu,
+      NewContactMenu,
       Profile,
       TopLeftMenu,
       ChatsList,
@@ -104,6 +170,18 @@
         default: false,
       },
       showProfile: {
+        type: Boolean,
+        default: false,
+      },
+      showNewContactMenu: {
+        type: Boolean,
+        default: false,
+      },
+      showNewGroupMenu: {
+        type: Boolean,
+        default: false,
+      },
+      showSettings: {
         type: Boolean,
         default: false,
       },

@@ -67,6 +67,7 @@
   }
 
   .no-contacts {
+    user-select: none;
     margin-top: 2rem;
   }
 </style>

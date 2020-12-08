@@ -1,20 +1,20 @@
 <template>
   <div
       :class="{ collapsed: !show }"
-      class="new-contacts-menu"
+      class="new-group-menu"
   >
-    <slot name="new-contacts-menu">
-      <div class="new-contacts-menu--container" >
-        <TopNewContactMenu :colors="colors" @close-new-contact-menu="$emit('close-new-contact-menu')">
-          <template v-slot:top-new-contacts-menu>
-            <slot name="top-new-contacts-menu"></slot>
+    <slot name="new-group-menu">
+      <div class="new-group-menu--container" >
+        <TopNewGroupMenu :colors="colors" @close-new-group-menu="$emit('close-new-group-menu')">
+          <template v-slot:top-new-group-menu>
+            <slot name="top-new-group-menu"></slot>
           </template>
-          <template v-slot:top-new-contacts-back>
-            <slot name="top-new-contacts-back"></slot>
+          <template v-slot:top-new-group-back>
+            <slot name="top-new-group-back"></slot>
           </template>
-        </TopNewContactMenu>
-        <div class="new-contacts-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
-          <slot name="new-contact-menu--body"></slot>
+        </TopNewGroupMenu>
+        <div class="new-group-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+          <slot name="new-group-menu--body"></slot>
         </div>
       </div>
     </slot>
@@ -22,9 +22,9 @@
 </template>
 
 <script>
-  import TopNewContactMenu from "./TopNewContactMenu";
+  import TopNewGroupMenu from "./TopNewGroupMenu";
   export default {
-    name: "NewContactMenu",
+    name: "NewGroupMenu",
     props: {
       colors: {
         type: Object,
@@ -40,13 +40,13 @@
       }
     },
     components: {
-      TopNewContactMenu
+      TopNewGroupMenu,
     }
   }
 </script>
 
 <style scoped>
-  .new-contacts-menu {
+  .new-group-menu {
     height: 100%;
     width: 100%;
     left: 0;
@@ -57,11 +57,11 @@
     transition: 400ms ease;
   }
 
-  .new-contacts-menu.collapsed {
+  .new-group-menu.collapsed {
     transform: translateX(-200%);
   }
 
-  .new-contacts-menu--container {
+  .new-group-menu--container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -70,7 +70,7 @@
     height: 100%;
   }
 
-  .new-contacts-menu--list {
+  .new-group-menu--list {
     /*display: flex;*/
     /*flex-direction: column;*/
     flex: 1;

@@ -1,6 +1,6 @@
 <template>
   <div class="profile--container">
-    Profile data...
+    Profile menu
 
   </div>
 </template>
@@ -23,6 +23,8 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    padding: 50px;
+    text-align: center;
   }
 
 </style>

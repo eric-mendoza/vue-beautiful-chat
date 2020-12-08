@@ -28,6 +28,9 @@
         :show-edition="true"
         :show-deletion="true"
         :show-contacts-menu="showContactsMenu"
+        :show-new-contact-menu="showNewContactMenu"
+        :show-new-group-menu="showNewGroupMenu"
+        :show-settings="showSettings"
         :show-confirmation-deletion="true"
         :show-profile="showProfile"
         :confirmation-deletion-message="'Are you sure? (you can customize this message)'"
@@ -38,7 +41,10 @@
         @remove="removeMessage"
         @opened-chat="openNewChat"
         @close-contacts-menu="closeContactsMenu"
+        @close-new-contact-menu="closeNewContactMenu"
+        @close-new-group-menu="closeNewGroupMenu"
         @close-profile-menu="closeProfileMenu"
+        @close-settings="closeSettings"
         @create-new-chat="createNewChat"
     >
       <template v-slot:top-left-menu>
@@ -48,19 +54,44 @@
             @show-contacts="showContactsMenu = $event"
             @show-options="showOptionsMenu= $event"
             @open-profile="showProfile = true"
+            @show-new-contact-menu="showNewContactMenu = true"
+            @show-new-group-menu="showNewGroupMenu = true"
+            @show-settings="showSettings = true"
         />
       </template>
-      <template v-slot:contacts-menu>
-        <slot name="contacts-menu"></slot>
-      </template>
+
+      <!--  Contacts    -->
+      <template v-slot:contacts-menu></template>
       <template v-slot:top-contacts-menu></template>
       <template v-slot:top-contacts-back></template>
+
+      <!--  Profile   -->
       <template v-slot:top-profile-menu></template>
       <template v-slot:top-profile-back></template>
       <template v-slot:profile-menu></template>
       <template v-slot:profile-menu--body>
         <Profile />
       </template>
+
+      <!--  New contact    -->
+      <template v-slot:new-contact-menu></template>
+      <template v-slot:top-new-contact-menu></template>
+      <template v-slot:top-new-contact-back></template>
+      <template v-slot:new-contact-menu--body>New contact menu</template>
+
+      <!--  New group    -->
+      <template v-slot:new-group-menu></template>
+      <template v-slot:top-new-group-menu></template>
+      <template v-slot:top-new-group-back></template>
+      <template v-slot:new-group-menu--body></template>
+
+
+      <!--   Settings   -->
+      <template v-slot:settings></template>
+      <template v-slot:top-settings></template>
+      <template v-slot:top-settings-back></template>
+      <template v-slot:settings--body>Configuration</template>
+
       <template v-slot:text-message-toolbox="scopedProps">
         <button
             v-if="!scopedProps.me && scopedProps.message.type === 'text'"
@@ -171,6 +202,9 @@ export default {
       newMessagesCount: 3,
       isChatOpen: false,
       showContactsMenu: false,
+      showNewContactMenu: false,
+      showNewGroupMenu: false,
+      showSettings: false,
       showTypingIndicator: '',
       colors: null,
       availableColors,
@@ -269,6 +303,17 @@ export default {
     closeContactsMenu() {
       console.debug('%c Closing contacts menu.', 'background: #228B22; color: #ffffff');
       this.showContactsMenu = false;
+    },
+    closeNewContactMenu() {
+      console.debug('%c Closing new contact menu.', 'background: #228B22; color: #ffffff');
+      this.showNewContactMenu = false;
+    },
+    closeNewGroupMenu() {
+      console.debug('%c Closing new group menu.', 'background: #228B22; color: #ffffff');
+      this.showNewGroupMenu = false;
+    },
+    closeSettings() {
+      this.showSettings = false;
     },
     closeProfileMenu() {
       console.debug('%c Closing profile menu.', 'background: #228B22; color: #ffffff');

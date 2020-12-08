@@ -92,5 +92,6 @@
 
   .no-open-chat {
     margin-top: 2rem;
+    user-select: none;
   }
 </style>

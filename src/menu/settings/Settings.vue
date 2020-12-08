@@ -1,20 +1,20 @@
 <template>
   <div
-      :class="{ collapsed: !showProfile }"
-      class="profile-menu"
+      :class="{ collapsed: !showSettings }"
+      class="settings-menu"
   >
-    <slot name="profile-menu">
-      <div class="profile-menu--container" >
-        <TopProfileMenu :colors="colors" @close-profile-menu="$emit('close-profile-menu')">
-          <template v-slot:top-profile-menu>
-            <slot name="top-profile-menu"></slot>
+    <slot name="settings">
+      <div class="settings-menu--container" >
+        <TopSettings :colors="colors" @close-settings="$emit('close-settings')">
+          <template v-slot:top-settings>
+            <slot name="top-settings"></slot>
           </template>
-          <template v-slot:top-profile-back>
-            <slot name="top-profile-back"></slot>
+          <template v-slot:top-settings-back>
+            <slot name="top-settings-back"></slot>
           </template>
-        </TopProfileMenu>
-        <div class="profile-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
-          <slot name="profile-menu--body"></slot>
+        </TopSettings>
+        <div class="settings-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+          <slot name="settings--body"></slot>
         </div>
       </div>
     </slot>
@@ -22,15 +22,15 @@
 </template>
 
 <script>
-  import TopProfileMenu from "./TopProfileMenu";
+  import TopSettings from "./TopSettings";
   export default {
-    name: "Profile",
+    name: "Settings",
     props: {
       colors: {
         type: Object,
         required: true
       },
-      showProfile: {
+      showSettings: {
         type: Boolean,
         default: false,
       },
@@ -44,13 +44,13 @@
       }
     },
     components: {
-      TopProfileMenu,
+      TopSettings,
     }
   }
 </script>
 
 <style scoped>
-  .profile-menu {
+  .settings-menu {
     height: 100%;
     width: 100%;
     left: 0;
@@ -61,11 +61,11 @@
     transition: 400ms ease;
   }
 
-  .profile-menu.collapsed {
+  .settings-menu.collapsed {
     transform: translateX(-200%);
   }
 
-  .profile-menu--container {
+  .settings-menu--container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -74,7 +74,7 @@
     height: 100%;
   }
 
-  .profile-menu--list {
+  .settings-menu--list {
     /*display: flex;*/
     /*flex-direction: column;*/
     flex: 1;
