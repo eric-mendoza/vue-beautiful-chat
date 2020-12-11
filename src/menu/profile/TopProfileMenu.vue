@@ -33,8 +33,8 @@
     color: #fff;
     display: flex;
     align-items: center;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 400;
     margin-left: 5px;
     flex: 1;
   }

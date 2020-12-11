@@ -4,7 +4,7 @@
       class="profile-menu"
   >
     <slot name="profile-menu">
-      <div class="profile-menu--container" >
+      <div class="profile-menu--container">
         <TopProfileMenu :colors="colors" @close-profile-menu="$emit('close-profile-menu')">
           <template v-slot:top-profile-menu>
             <slot name="top-profile-menu"></slot>
@@ -13,6 +13,7 @@
             <slot name="top-profile-back"></slot>
           </template>
         </TopProfileMenu>
+
         <div class="profile-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
           <slot name="profile-menu--body"></slot>
         </div>

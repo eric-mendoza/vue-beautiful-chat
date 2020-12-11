@@ -92,6 +92,9 @@
       <template v-slot:top-settings-back></template>
       <template v-slot:settings--body>Configuration</template>
 
+      <!--   Contact profile   -->
+      <template v-slot:contact-profile--body></template>
+
       <template v-slot:text-message-toolbox="scopedProps">
         <button
             v-if="!scopedProps.me && scopedProps.message.type === 'text'"

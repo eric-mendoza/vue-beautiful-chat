@@ -9,6 +9,7 @@ function messages() {
     someone: 'Alguien',
     yesterday: 'ayer',
     online: 'En línea',
+    contactInfo: 'Información de contacto'
   };
 
   let english = {
@@ -19,6 +20,7 @@ function messages() {
     someone: 'Someone',
     yesterday: 'yesterday',
     online: 'Online',
+    contactInfo: 'Contact info'
   };
 
   let language = navigator.language.split('-')[0].toLowerCase();

@@ -12,7 +12,7 @@
       :contacts="contacts"
       :show-profile="showProfile"
       :profile="profile"
-      @opened-chat="$emit('opened-chat', $event)"
+      @opened-chat="handleOpenedChat($event)"
       @close-contacts-menu="$emit('close-contacts-menu')"
       @create-new-chat="$emit('create-new-chat', $event)"
       @close-profile-menu="$emit('close-profile-menu')"
@@ -107,6 +107,7 @@
         @onType="$emit('onType')"
         @edit="$emit('edit', $event)"
         @remove="$emit('remove', $event)"
+        @user-profile="toggleContactProfile"
     >
       <template v-slot:header>
         <slot name="header"> </slot>
@@ -132,6 +133,16 @@
         </slot>
       </template>
     </ChatArea>
+
+    <ContactProfile
+        v-if="showContactProfile"
+        :colors="colors"
+        @close="showContactProfile = false"
+    >
+      <template v-slot:contact-profile--body>
+        <slot name="contact-profile--body"></slot>
+      </template>
+    </ContactProfile>
   </div>
 </template>
 
@@ -142,6 +153,7 @@
   import CloseIcon from './../assets/close-icon.png'
   import OpenIcon from './../assets/logo-no-bg.svg'
   import {chatTitle} from "../formatters";
+  import ContactProfile from "./contactProfile/ContactProfile";
   export default {
     name: "ChatMenu",
     props: {
@@ -344,10 +356,18 @@
     },
     data() {
       return {
-
+        showContactProfile: false,
       }
     },
-    methods: {},
+    methods: {
+      toggleContactProfile() {
+        this.showContactProfile = !this.showContactProfile;
+      },
+      handleOpenedChat(state) {
+        this.showContactProfile = false;
+        this.$emit('opened-chat', state)
+      }
+    },
     computed: {
       chatWindowTitle() {
         return chatTitle(this.openedChat)
@@ -366,6 +386,7 @@
       }
     },
     components: {
+      ContactProfile,
       LeftMenu,
       ChatArea
     }

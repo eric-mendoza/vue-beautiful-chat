@@ -8,10 +8,10 @@
       <img class="sc-header--img" :src="chatImage" alt="Chat image" />
       <div
           class="sc-header--title"
-          :class="{enabled: !disableUserListToggle && groupChat}"
-          @click="!disableUserListToggle && groupChat ? toggleUserList() : ''"
+          :class="{enabled: !disableUserListToggle}"
+          @click="!disableUserListToggle ? headerAction() : ''"
       >
-        <span>{{ title }}</span>
+        <span class="sc-header--title-text">{{ title }}</span>
         <span v-if="metaMessage" class="sc-header--meta" :class="{italic: someoneIsTyping}">{{metaMessage}}</span>
       </div>
     </slot>
@@ -106,6 +106,16 @@ export default {
     toggleUserList() {
       this.inUserList = !this.inUserList;
       this.$emit('userList', this.inUserList)
+    },
+    headerAction() {
+      if (this.groupChat) {
+        this.toggleUserList()
+      } else {
+        this.toggleUserProfile()
+      }
+    },
+    toggleUserProfile() {
+      this.$emit('user-profile')
     }
   }
 }
@@ -113,7 +123,7 @@ export default {
 
 <style scoped>
 .sc-header {
-  min-height: 75px;
+  height: 65px;
   padding: 10px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   position: relative;
@@ -146,6 +156,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.sc-header--title-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .sc-header--title.enabled {

@@ -10,6 +10,7 @@
         :show-typing-indicator="openedChat.showTypingIndicator"
         @close="$emit('close')"
         @userList="handleUserListToggle"
+        @user-profile="$emit('user-profile')"
     >
       <template>
         <slot name="header"> </slot>
@@ -136,7 +137,8 @@
     },
     data() {
       return {
-        showUserList: false
+        showUserList: false,
+        showUserProfile: false,
       }
     },
     computed: {
