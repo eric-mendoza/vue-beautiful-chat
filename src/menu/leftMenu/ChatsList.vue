@@ -6,7 +6,7 @@
           :chat="chat"
           :active="active(chat)"
           :colors="colors"
-          @opened-chat="$emit('opened-chat', $event)"
+          @opened-chat="$emit('opened-chat', $event, chatIndex)"
       >
         <template #chat-item="scopedProps">
 

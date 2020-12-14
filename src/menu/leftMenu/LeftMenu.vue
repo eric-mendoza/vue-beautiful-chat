@@ -18,7 +18,7 @@
           :chats="chats"
           :opened-chat="openedChat"
           :colors="colors"
-          @opened-chat="$emit('opened-chat', $event)"
+          @opened-chat="handleOpenedChat"
       >
         <template #chats="scopedProps">
 
@@ -192,6 +192,11 @@
         type: Array
       }
     },
+    methods: {
+      handleOpenedChat(state, chatIndex) {
+        this.$emit('opened-chat', state, chatIndex);
+      }
+    }
   }
 </script>
 

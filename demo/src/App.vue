@@ -296,7 +296,7 @@ export default {
       this.isChatOpen = true;
       this.newMessagesCount = 0
     },
-    openNewChat(chat) {
+    openNewChat(chat, chatIndex) {
       this.openedChat = chat;
       this.openedChat.newMessagesCount = 0
     },

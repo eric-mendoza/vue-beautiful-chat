@@ -12,7 +12,7 @@
       :contacts="contacts"
       :show-profile="showProfile"
       :profile="profile"
-      @opened-chat="handleOpenedChat($event)"
+      @opened-chat="handleOpenedChat"
       @close-contacts-menu="$emit('close-contacts-menu')"
       @create-new-chat="$emit('create-new-chat', $event)"
       @close-profile-menu="$emit('close-profile-menu')"
@@ -363,9 +363,9 @@
       toggleContactProfile() {
         this.showContactProfile = !this.showContactProfile;
       },
-      handleOpenedChat(state) {
+      handleOpenedChat(state, chatIndex) {
         this.showContactProfile = false;
-        this.$emit('opened-chat', state)
+        this.$emit('opened-chat', state, chatIndex)
       }
     },
     computed: {
@@ -382,6 +382,12 @@
           for (const prop in props) {
             store.setState(prop, props[prop])
           }
+        }
+      },
+      openedChat() {
+        // Hide profile menu if chat deleted...
+        if (!this.openedChat) {
+          this.showContactProfile = false;
         }
       }
     },
