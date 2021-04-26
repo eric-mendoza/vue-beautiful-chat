@@ -40,7 +40,7 @@ export default {
           bg: '#FFFFFF',
           text: '#000000'
         }
-      }
+      };
       return Object.assign(defaultColors, this.colors)
     }
   }
@@ -57,6 +57,7 @@ export default {
 .img-msg {
   border-radius: 50%;
   width: 50px;
+  height: 50px;
   margin-right: 5px;
 }
 .user-element {

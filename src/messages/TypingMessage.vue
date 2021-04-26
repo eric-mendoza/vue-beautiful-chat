@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .sc-typing-indicator {
   text-align: center;
-  padding: 17px 20px;
+  padding: 12px 20px;
   border-radius: 6px;
 }
 

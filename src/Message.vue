@@ -206,10 +206,10 @@ export default {
 }
 
 .sc-message--meta {
-  font-size: xx-small;
-  margin-bottom: 0px;
-  color: white;
-  text-align: center;
+  font-size: 11px;
+  margin: -10px 0 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
 }
 
 @media (max-width: 450px) {
@@ -219,7 +219,7 @@ export default {
 }
 
 .sc-message--text {
-  padding: 5px 20px;
+  padding: 6px 7px 3px 9px;
   border-radius: 6px;
   font-weight: 300;
   font-size: 14px;
@@ -231,6 +231,12 @@ export default {
       white-space: pre-wrap;
     }
   }
+
+  .sc-message--text-content {
+    padding-right: 65px;
+    margin: 0 0;
+  }
+
   &:hover .sc-message--toolbox {
     left: -20px;
     opacity: 1;

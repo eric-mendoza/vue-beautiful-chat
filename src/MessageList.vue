@@ -109,6 +109,11 @@ export default {
       default: true
     }
   },
+  data() {
+    return {
+      previousHeight: 0,
+    }
+  },
   computed: {
     defaultChatIcon() {
       return chatIcon
@@ -118,27 +123,40 @@ export default {
     this.$nextTick(this._scrollDown())
   },
   updated() {
-    if (this.shouldScrollToBottom()) this.$nextTick(this._scrollDown())
+    if (this.shouldScrollToBottom()) {
+      this.$nextTick(this._scrollDown());
+    } else {
+      this.$nextTick(this._preserveScroll());
+    }
   },
   methods: {
     _scrollDown() {
       this.$refs.scrollList.scrollTop = this.$refs.scrollList.scrollHeight
     },
+    _preserveScroll() {
+      this.$refs.scrollList.scrollTop = this.$refs.scrollList.scrollHeight - this.previousHeight;
+    },
     handleScroll(e) {
       if (e.target.scrollTop === 0) {
-        this.$emit('scrollToTop')
+        this.previousHeight = this.$refs.scrollList.scrollHeight;
+        this.$emit('scrollToTop');
       }
     },
     shouldScrollToBottom() {
-      const scrollTop = this.$refs.scrollList.scrollTop
-      const scrollable = scrollTop > this.$refs.scrollList.scrollHeight - 600
+      const scrollTop = this.$refs.scrollList.scrollTop;
+      const scrollable = scrollTop > this.$refs.scrollList.scrollHeight - 600;
       return this.alwaysScrollToBottom || scrollable
     },
     profile(author) {
-      const profile = this.participants.find((profile) => profile.id === author)
+      const profile = this.participants.find((profile) => profile.id === author);
 
       // A profile may not be found for system messages or messages by 'me'
       return profile || {imageUrl: '', name: ''}
+    }
+  },
+  watch: {
+    messages() {
+
     }
   }
 }

@@ -28,8 +28,8 @@
     </template>
     <slot :message="message" :messageText="messageText" :messageColors="messageColors" :me="me">
       <p class="sc-message--text-content" v-html="messageText"></p>
-      <p v-if="message.data.meta" class="sc-message--meta" :style="{color: messageColors.color}">
-        {{ message.data.meta }}
+      <p v-if="message.data.meta || message.timestamp" class="sc-message--meta" :style="{color: messageColors.color}">
+        {{ message.data.meta }} {{ message.timestamp }}
       </p>
       <p v-if="message.isEdited" class="sc-message--edited">
         <IconBase width="10" icon-name="edited">
