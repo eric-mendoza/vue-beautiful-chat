@@ -5,7 +5,7 @@
   >
     <slot name="profile-menu">
       <div class="profile-menu--container">
-        <TopProfileMenu :colors="colors" @close-profile-menu="$emit('close-profile-menu')">
+        <TopProfileMenu :colors="colors" :rounded-corners="roundedCorners" @close-profile-menu="$emit('close-profile-menu')">
           <template v-slot:top-profile-menu>
             <slot name="top-profile-menu"></slot>
           </template>
@@ -14,7 +14,7 @@
           </template>
         </TopProfileMenu>
 
-        <div class="profile-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+        <div class="profile-menu--list" :class="{'bottom-left-rounded-corner': roundedCorners}" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
           <slot name="profile-menu--body"></slot>
         </div>
       </div>
@@ -42,6 +42,10 @@
             imageUrl: ''
           }
         }
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     },
     components: {

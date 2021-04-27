@@ -23,7 +23,7 @@
     </div>
     <form
       class="sc-user-input"
-      :class="{active: inputActive}"
+      :class="{active: inputActive, 'bottom-right-rounded-corner': roundedCorners}"
       :style="{background: colors.userInput.bg}"
     >
       <div
@@ -140,6 +140,10 @@ export default {
     colors: {
       type: Object,
       required: true
+    },
+    roundedCorners: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

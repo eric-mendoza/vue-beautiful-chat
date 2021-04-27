@@ -1,5 +1,9 @@
 <template>
-  <div class="contact-profile-top" :style="{background: colors.topLeftMenu.bg, color: colors.header.text}">
+  <div
+      class="contact-profile-top"
+      :class="{'top-right-rounded-corner': roundedCorners}"
+      :style="{background: colors.topLeftMenu.bg, color: colors.header.text}"
+  >
     <div class="top-contact-profile--close-button" @click="$emit('close')">
       <img :src="icons.close.img" :alt="icons.close.name" />
     </div>
@@ -32,6 +36,10 @@
           }
         }
       },
+      roundedCorners: {
+        type: Boolean,
+        default: false
+      }
     },
     computed: {
       contactInfo() {

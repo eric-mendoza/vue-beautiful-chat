@@ -5,7 +5,7 @@
   >
     <slot name="settings">
       <div class="settings-menu--container" >
-        <TopSettings :colors="colors" @close-settings="$emit('close-settings')">
+        <TopSettings :colors="colors" :rounded-corners="roundedCorners" @close-settings="$emit('close-settings')">
           <template v-slot:top-settings>
             <slot name="top-settings"></slot>
           </template>
@@ -13,7 +13,7 @@
             <slot name="top-settings-back"></slot>
           </template>
         </TopSettings>
-        <div class="settings-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+        <div class="settings-menu--list" :class="{'bottom-left-rounded-corner': roundedCorners}" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
           <slot name="settings--body"></slot>
         </div>
       </div>
@@ -41,6 +41,10 @@
             imageUrl: ''
           }
         }
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     },
     components: {

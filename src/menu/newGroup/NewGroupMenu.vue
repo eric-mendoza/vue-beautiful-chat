@@ -5,7 +5,7 @@
   >
     <slot name="new-group-menu">
       <div class="new-group-menu--container" >
-        <TopNewGroupMenu :colors="colors" @close-new-group-menu="$emit('close-new-group-menu')">
+        <TopNewGroupMenu :colors="colors" :rounded-corners="roundedCorners" @close-new-group-menu="$emit('close-new-group-menu')">
           <template v-slot:top-new-group-menu>
             <slot name="top-new-group-menu"></slot>
           </template>
@@ -13,7 +13,7 @@
             <slot name="top-new-group-back"></slot>
           </template>
         </TopNewGroupMenu>
-        <div class="new-group-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+        <div class="new-group-menu--list" :class="{'bottom-left-rounded-corner': roundedCorners}" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
           <slot name="new-group-menu--body"></slot>
         </div>
       </div>
@@ -37,6 +37,10 @@
       contacts: {
         type: Array,
         default: () => []
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     },
     components: {

@@ -12,6 +12,7 @@
       :contacts="contacts"
       :show-profile="showProfile"
       :profile="profile"
+      :rounded-corners="roundedCorners"
       @opened-chat="handleOpenedChat"
       @close-contacts-menu="$emit('close-contacts-menu')"
       @create-new-chat="$emit('create-new-chat', $event)"
@@ -103,6 +104,7 @@
         :colors="colors"
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :message-styling="messageStyling"
+        :rounded-corners="roundedCorners && !showContactProfile"
         @scrollToTop="$emit('scrollToTop')"
         @onType="$emit('onType')"
         @edit="$emit('edit', $event)"
@@ -137,6 +139,7 @@
     <ContactProfile
         v-if="showContactProfile"
         :colors="colors"
+        :rounded-corners="roundedCorners"
         @close="showContactProfile = false"
     >
       <template v-slot:contact-profile--body>
@@ -353,6 +356,10 @@
           }
         }
       },
+      roundedCorners: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {
@@ -399,7 +406,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss">
   .chat-menu-container {
     display: flex;
     flex-direction: row;
@@ -409,7 +416,27 @@
     min-height: 0;
   }
 
+  .rounded-corners {
+    border-radius: 5px 0 0 5px;
+  }
 
+  .rounded-corners-right {
+    border-radius: 0 5px 5px 0;
+  }
 
+  .top-left-rounded-corner {
+    border-radius: 5px 0 0 0;
+  }
 
+  .bottom-left-rounded-corner {
+    border-radius: 0 0 0 5px;
+  }
+
+  .top-right-rounded-corner {
+    border-radius: 0 5px 0 0;
+  }
+
+  .bottom-right-rounded-corner {
+    border-radius: 0 0 5px 0;
+  }
 </style>

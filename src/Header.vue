@@ -1,7 +1,7 @@
 <template>
   <div
       class="sc-header"
-      :class="rounded ? 'top-rounded' : ''"
+      :class="{'top-rounded': rounded, 'top-right-rounded-corner': roundedCorners}"
       :style="{background: colors.header.bg, color: colors.header.text}"
   >
     <slot>
@@ -64,6 +64,10 @@ export default {
       type: Array,
       required: true
     },
+    roundedCorners: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

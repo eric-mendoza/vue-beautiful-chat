@@ -1,11 +1,13 @@
 <template>
   <div
       class="left-menu"
+      :class="{'rounded-corners': roundedCorners}"
       :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}"
   >
     <!--  Top content  -->
     <TopLeftMenu
         :colors="colors"
+        :rounded-corners="roundedCorners"
     >
       <template v-slot:top-left-menu>
         <slot name="top-left-menu"> </slot>
@@ -35,6 +37,7 @@
         :show-contacts-menu="showContactsMenu"
         :colors="colors"
         :contacts="contacts"
+        :rounded-corners="roundedCorners"
         @close-contacts-menu="$emit('close-contacts-menu')"
         @selected-contact="$emit('create-new-chat', $event)"
     >
@@ -55,6 +58,7 @@
         :show-profile="showProfile"
         :colors="colors"
         :profile="profile"
+        :rounded-corners="roundedCorners"
         @close-profile-menu="$emit('close-profile-menu')"
     >
       <template v-slot:top-profile-menu>
@@ -75,6 +79,7 @@
     <NewContactMenu
         :show="showNewContactMenu"
         :colors="colors"
+        :rounded-corners="roundedCorners"
         @close-new-contact-menu="$emit('close-new-contact-menu')"
     >
       <template v-slot:new-contacts-menu>
@@ -95,6 +100,7 @@
     <NewGroupMenu
         :show="showNewGroupMenu"
         :colors="colors"
+        :rounded-corners="roundedCorners"
         @close-new-group-menu="$emit('close-new-group-menu')"
     >
       <template v-slot:new-group-menu>
@@ -115,6 +121,7 @@
     <Settings
         :show-settings="showSettings"
         :colors="colors"
+        :rounded-corners="roundedCorners"
         @close-settings="$emit('close-settings')"
     >
       <template v-slot:settings>
@@ -190,6 +197,10 @@
       },
       contacts: {
         type: Array
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
@@ -221,5 +232,4 @@
     display: flex;
     padding: 20px;
   }
-
 </style>

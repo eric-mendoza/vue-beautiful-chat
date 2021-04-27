@@ -1,5 +1,9 @@
 <template>
-  <div class="left-menu-top" :style="{background: colors.topLeftMenu.bg, color: colors.topLeftMenu.text}">
+  <div
+      class="left-menu-top"
+      :class="{'top-left-rounded-corner': roundedCorners}"
+      :style="{background: colors.topLeftMenu.bg, color: colors.topLeftMenu.text}"
+  >
     <slot name="top-left-menu">
       <div class="top-text">
         Chat
@@ -15,6 +19,10 @@
       colors: {
         type: Object,
         required: true,
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     }
   }

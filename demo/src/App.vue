@@ -36,6 +36,7 @@
         :confirmation-deletion-message="'Are you sure? (you can customize this message)'"
         :title-image-url="titleImageUrl"
         :disable-user-list-toggle="false"
+        :rounded-corners="true"
         @onType="handleOnType"
         @edit="editMessage"
         @remove="removeMessage"

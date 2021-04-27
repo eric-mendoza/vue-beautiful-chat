@@ -8,6 +8,7 @@
         :imageUrl="openedChat.imageUrl"
         :participants="openedChat.participants"
         :show-typing-indicator="openedChat.showTypingIndicator"
+        :rounded-corners="roundedCorners"
         @close="$emit('close')"
         @userList="handleUserListToggle"
         @user-profile="$emit('user-profile')"
@@ -62,6 +63,7 @@
         :show-file="showFile"
         :placeholder="placeholder"
         :colors="colors"
+        :rounded-corners="roundedCorners"
         @onType="$emit('onType')"
         @edit="$emit('edit', $event)"
     />
@@ -134,6 +136,10 @@
         type: Object,
         default: null,
       },
+      roundedCorners: {
+        type: Boolean,
+        default: false
+      }
     },
     data() {
       return {

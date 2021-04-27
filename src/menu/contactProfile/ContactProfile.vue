@@ -1,11 +1,13 @@
 <template>
   <div
       class="contact-profile"
+      :class="{'rounded-corners-right': roundedCorners}"
       :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}"
   >
     <!--  Top content  -->
     <TopContactProfile
         :colors="colors"
+        :rounded-corners="roundedCorners"
         @close="$emit('close')"
     >
       <template v-slot:top-contact-profile>
@@ -14,7 +16,10 @@
     </TopContactProfile>
 
     <!--  Contact data  -->
-    <div class="contact-profile-list">
+    <div
+        class="contact-profile-list"
+        :class="{'bottom-right-rounded-corner': roundedCorners}"
+    >
       <slot name="contact-profile--body"></slot>
     </div>
   </div>
@@ -32,6 +37,10 @@
         type: Object,
         required: true
       },
+      roundedCorners: {
+        type: Boolean,
+        default: false
+      }
     },
   }
 </script>

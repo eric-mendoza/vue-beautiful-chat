@@ -1,5 +1,8 @@
 <template>
-  <div class="contacts-list">
+  <div
+      class="contacts-list"
+      :class="{'rounded-corners': roundedCorners}"
+  >
     <slot name="contacts" :chats="contacts">
       <ContactListItem
           v-for="(contact, contactIndex) in contacts"
@@ -33,6 +36,10 @@
         type: Object,
         required: true
       },
+      roundedCorners: {
+        type: Boolean,
+        default: false
+      }
     },
     methods: {
 

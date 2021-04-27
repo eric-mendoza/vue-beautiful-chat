@@ -5,7 +5,7 @@
   >
     <slot name="new-contacts-menu">
       <div class="new-contacts-menu--container" >
-        <TopNewContactMenu :colors="colors" @close-new-contact-menu="$emit('close-new-contact-menu')">
+        <TopNewContactMenu :colors="colors" :rounded-corners="roundedCorners" @close-new-contact-menu="$emit('close-new-contact-menu')">
           <template v-slot:top-new-contacts-menu>
             <slot name="top-new-contacts-menu"></slot>
           </template>
@@ -13,7 +13,7 @@
             <slot name="top-new-contacts-back"></slot>
           </template>
         </TopNewContactMenu>
-        <div class="new-contacts-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+        <div class="new-contacts-menu--list" :class="{'bottom-left-rounded-corner': roundedCorners}" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
           <slot name="new-contact-menu--body"></slot>
         </div>
       </div>
@@ -37,6 +37,10 @@
       contacts: {
         type: Array,
         default: () => []
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     },
     components: {

@@ -1,11 +1,15 @@
 <template>
   <div
-      :class="{ collapsed: !showContactsMenu }"
+      :class="{ collapsed: !showContactsMenu, 'rounded-corners': roundedCorners}"
       class="contacts-menu"
   >
     <slot name="contacts-menu">
       <div class="contacts-menu--container" >
-        <TopContactsMenu :colors="colors" @close-contacts-menu="$emit('close-contacts-menu')">
+        <TopContactsMenu
+            :colors="colors"
+            :rounded-corners="roundedCorners"
+            @close-contacts-menu="$emit('close-contacts-menu')"
+        >
           <template v-slot:top-contacts-menu>
             <slot name="top-contacts-menu"></slot>
           </template>
@@ -13,10 +17,15 @@
             <slot name="top-contacts-back"></slot>
           </template>
         </TopContactsMenu>
-        <div class="contacts-menu--list" :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}">
+        <div
+            class="contacts-menu--list"
+            :class="{'rounded-corners': roundedCorners}"
+            :style="{backgroundColor: colors.leftMenu.bg, color: colors.leftMenu.text}"
+        >
           <ContactsList
               :contacts="contacts"
               :colors="colors"
+              :rounded-corners="roundedCorners"
               @selected-contact="$emit('selected-contact', $event)"
           >
             <template #contact-item="scopedProps">
@@ -46,6 +55,10 @@
       contacts: {
         type: Array,
         default: () => []
+      },
+      roundedCorners: {
+        type: Boolean,
+        default: false
       }
     },
     components: {
