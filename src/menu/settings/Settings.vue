@@ -2,6 +2,9 @@
   <div
       :class="{ collapsed: !showSettings }"
       class="settings-menu"
+      ref="settings"
+      tabindex="0"
+      @keydown.esc="$emit('close-settings')"
   >
     <slot name="settings">
       <div class="settings-menu--container" >
@@ -45,6 +48,13 @@
       roundedCorners: {
         type: Boolean,
         default: false
+      }
+    },
+    watch: {
+      showSettings() {
+        if (this.showSettings) {
+          this.$refs.settings.focus();
+        }
       }
     },
     components: {

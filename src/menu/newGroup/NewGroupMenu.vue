@@ -2,6 +2,9 @@
   <div
       :class="{ collapsed: !show }"
       class="new-group-menu"
+      ref="newGroup"
+      tabindex="0"
+      @keydown.esc="$emit('close-new-group-menu')"
   >
     <slot name="new-group-menu">
       <div class="new-group-menu--container" >
@@ -41,6 +44,13 @@
       roundedCorners: {
         type: Boolean,
         default: false
+      }
+    },
+    watch: {
+      show() {
+        if (this.show) {
+          this.$refs.newGroup.focus();
+        }
       }
     },
     components: {

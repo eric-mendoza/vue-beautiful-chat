@@ -2,6 +2,9 @@
   <div
       :class="{ collapsed: !showProfile }"
       class="profile-menu"
+      ref="profile"
+      tabindex="0"
+      @keydown.esc="$emit('close-profile-menu')"
   >
     <slot name="profile-menu">
       <div class="profile-menu--container">
@@ -46,6 +49,13 @@
       roundedCorners: {
         type: Boolean,
         default: false
+      }
+    },
+    watch: {
+      showProfile() {
+        if (this.showProfile) {
+          this.$refs.profile.focus();
+        }
       }
     },
     components: {

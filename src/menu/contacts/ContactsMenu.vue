@@ -2,6 +2,9 @@
   <div
       :class="{ collapsed: !showContactsMenu, 'rounded-corners': roundedCorners}"
       class="contacts-menu"
+      ref="contacts"
+      tabindex="0"
+      @keydown.esc="$emit('close-contacts-menu')"
   >
     <slot name="contacts-menu">
       <div class="contacts-menu--container" >
@@ -59,6 +62,13 @@
       roundedCorners: {
         type: Boolean,
         default: false
+      }
+    },
+    watch: {
+      showContactsMenu() {
+        if (this.showContactsMenu) {
+          this.$refs.contacts.focus();
+        }
       }
     },
     components: {
