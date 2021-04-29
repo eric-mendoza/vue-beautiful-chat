@@ -136,6 +136,15 @@
       </template>
     </ChatArea>
 
+    <!--  No opened chats  -->
+    <NoOpenedChatMessage
+        v-if="!openedChat"
+        :colors="colors"
+        :rounded-corners="roundedCorners && !showContactProfile"
+    >
+      <slot></slot>
+    </NoOpenedChatMessage>
+
     <ContactProfile
         v-if="showContactProfile"
         :colors="colors"
@@ -157,6 +166,7 @@
   import OpenIcon from './../assets/logo-no-bg.svg'
   import {chatTitle} from "../formatters";
   import ContactProfile from "./contactProfile/ContactProfile";
+  import NoOpenedChatMessage from "./chatArea/NoOpenedChatMessage";
   export default {
     name: "ChatMenu",
     props: {
@@ -316,7 +326,10 @@
           'text' in c.userInput &&
           'alert' in c &&
           'bg' in c.alert &&
-          'text' in c.alert,
+          'text' in c.alert &&
+          'lightBackground' in c &&
+          'bg' in c.lightBackground &&
+          'text' in c.lightBackground,
         default: function () {
           return {
             header: {
@@ -399,6 +412,7 @@
       }
     },
     components: {
+      NoOpenedChatMessage,
       ContactProfile,
       LeftMenu,
       ChatArea

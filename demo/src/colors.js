@@ -38,6 +38,10 @@ export default {
       bg: '#ff4646',
       text: '#fff'
     },
+    lightBackground: {
+      bg: '#ffc0c1',
+      text: '#212121'
+    }
   },
   green: {
     header: {
@@ -78,6 +82,10 @@ export default {
       bg: '#ff4646',
       text: '#fff'
     },
+    lightBackground: {
+      bg: '#ffc0c1',
+      text: '#212121'
+    }
   },
   blue: {
     header: {
@@ -118,6 +126,10 @@ export default {
       bg: '#ff4646',
       text: '#fff'
     },
+    lightBackground: {
+      bg: '#e9f4ff',
+      text: '#212121'
+    }
   },
   dark: {
     header: {
@@ -158,6 +170,10 @@ export default {
       bg: '#ff4646',
       text: '#fff'
     },
+    lightBackground: {
+      bg: '#c9e3ff',
+      text: '#212121'
+    }
   }
 }
 
