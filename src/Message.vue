@@ -10,7 +10,7 @@
     >
       <slot name="user-avatar" :message="message" :user="user">
         <div
-          v-if="message.type !== 'system' && authorName && authorName !== 'me'"
+          v-if="message.type !== 'system' && authorName !== 'me'"
           v-tooltip="authorName"
           :title="authorName"
           class="sc-message--avatar"
@@ -126,7 +126,7 @@ export default {
   },
   computed: {
     authorName() {
-      return this.user && this.user.name
+      return (this.user && this.user.name) || (this.message.author) || 'user'
     },
     chatImageUrl() {
       return (this.user && this.user.imageUrl) || this.defaultPhoto

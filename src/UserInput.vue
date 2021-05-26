@@ -23,7 +23,11 @@
     </div>
     <form
       class="sc-user-input"
-      :class="{active: inputActive, 'bottom-right-rounded-corner': roundedCorners}"
+      :class="{
+        active: inputActive,
+        'bottom-right-rounded-corner': roundedCorners,
+        'rounded-bottom': windowChat
+      }"
       :style="{background: colors.userInput.bg}"
     >
       <div
@@ -144,6 +148,10 @@ export default {
     roundedCorners: {
       type: Boolean,
       default: false
+    },
+    windowChat: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -298,9 +306,12 @@ export default {
   bottom: 0;
   display: flex;
   background-color: #f4f7f9;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rounded-bottom {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .sc-user-input--text {

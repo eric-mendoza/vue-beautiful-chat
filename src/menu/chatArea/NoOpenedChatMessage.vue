@@ -59,8 +59,12 @@
       justify-content: center;
       align-items: center;
       margin: 5em;
-      height: 500px;
-      width: 500px;
+      height: 400px;
+      width: 400px;
+      min-height: 400px;
+      min-width: 400px;
+      max-height: 400px;
+      max-width: 400px;
       border-radius: 50%;
     }
   }

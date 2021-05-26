@@ -64,6 +64,7 @@
         :placeholder="placeholder"
         :colors="colors"
         :rounded-corners="roundedCorners"
+        :window-chat="false"
         @onType="$emit('onType')"
         @edit="$emit('edit', $event)"
     />
