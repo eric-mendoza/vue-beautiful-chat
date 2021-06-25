@@ -51,8 +51,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    min-width: 400px;
     height: 100%;
+    flex: 1;
 
     .message {
       display: flex;

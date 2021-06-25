@@ -237,6 +237,8 @@ export default {
           participants: chatParticipants[0],
           showTypingIndicator: '',
           title: '',
+          type: 'groupchat',
+          member: false,
         },
         {
           datetime: '2020-11-18 16:28:47',
@@ -247,6 +249,8 @@ export default {
           participants: chatParticipants[1],
           showTypingIndicator: 'ericmendoza',
           title: 'Work and other people I dont know',
+          type: 'groupchat',
+          member: true,
         },
         {
           datetime: '2020-11-17 00:28:47',
@@ -257,6 +261,8 @@ export default {
           participants: chatParticipants[2],
           showTypingIndicator: '',
           title: '',
+          type: 'chat',
+          member: true,
         },
       ]
     }

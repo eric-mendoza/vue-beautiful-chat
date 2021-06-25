@@ -1,27 +1,36 @@
 <template>
   <div>
-    <Suggestions :suggestions="suggestions" :colors="colors" @sendSuggestion="_submitSuggestion" />
+    <Suggestions v-if="member" :suggestions="suggestions" :colors="colors" @sendSuggestion="_submitSuggestion" />
     <div
-      v-if="file"
+      v-if="file && member"
       class="file-container"
       :style="{
         backgroundColor: colors.userInput.text,
         color: colors.userInput.bg
       }"
     >
-      <span class="icon-file-message"
-        ><img :src="icons.file.img" :alt="icons.file.name" height="15"
-      /></span>
-      {{ file.name }}
-      <span class="delete-file-message" @click="cancelFile()"
-        ><img
+      <span class="icon-file-message">
+        <img
+            :src="icons.file.img"
+            :alt="icons.file.name" height="15"
+            style="width: 15px; height: 15px"
+        />
+      </span>
+      <span style="flex-grow: 2">
+        {{ file.name }}
+      </span>
+      <span class="delete-file-message" @click="cancelFile()">
+        <img
           :src="icons.closeSvg.img"
           :alt="icons.closeSvg.name"
           height="10"
           title="Remove the file"
-      /></span>
+          style="width: 10px; height: 10px"
+        />
+      </span>
     </div>
     <form
+      v-if="member"
       class="sc-user-input"
       :class="{
         active: inputActive,
@@ -78,6 +87,22 @@
             <IconSend />
           </UserInputButton>
         </div>
+      </div>
+    </form>
+
+    <!--  Not member message  -->
+    <form
+        v-if="!member"
+        class="sc-user-input--disabled"
+        :class="{
+        active: inputActive,
+        'bottom-right-rounded-corner': roundedCorners,
+        'rounded-bottom': windowChat
+        }"
+        :style="{background: colors.userInput.bg}"
+    >
+      <div class="no-participant-msg">
+        {{ nonMemberPlaceholder }}
       </div>
     </form>
   </div>
@@ -141,6 +166,10 @@ export default {
       type: String,
       default: 'Write something...'
     },
+    nonMemberPlaceholder: {
+      type: String,
+      default: 'You can\'t send messages to this group because you\'re no longer a participant.',
+    },
     colors: {
       type: Object,
       required: true
@@ -150,6 +179,10 @@ export default {
       default: false
     },
     windowChat: {
+      type: Boolean,
+      default: true
+    },
+    member: {
       type: Boolean,
       default: true
     }
@@ -309,6 +342,17 @@ export default {
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+
+.sc-user-input--disabled {
+  min-height: 55px;
+  margin: 0px;
+  position: relative;
+  bottom: 0;
+  display: flex;
+  background-color: #dde0e2;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 .rounded-bottom {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -398,9 +442,12 @@ export default {
 }
 
 .file-container {
+  display: flex;
+  align-items: center;
   background-color: #f4f7f9;
   border-top-left-radius: 10px;
   padding: 5px 20px;
+  height: 35px;
   color: #565867;
 }
 
@@ -409,6 +456,7 @@ export default {
   float: right;
   cursor: pointer;
   color: #c8cad0;
+  width: 10px;
 }
 
 .delete-file-message:hover {
@@ -417,5 +465,16 @@ export default {
 
 .icon-file-message {
   margin-right: 5px;
+}
+
+.no-participant-msg {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: lighter;
+  color: darkgray;
+  font-size: 14px;
+  user-select: none;
 }
 </style>

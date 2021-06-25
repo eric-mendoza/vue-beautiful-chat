@@ -2,6 +2,7 @@
   <div class="chat-area">
     <Header
         v-if="showHeader"
+        :id="openedChat.id"
         :title="title"
         :colors="colors"
         :rounded="false"
@@ -9,6 +10,7 @@
         :participants="openedChat.participants"
         :show-typing-indicator="openedChat.showTypingIndicator"
         :rounded-corners="roundedCorners"
+        :group-chat="openedChat.type === 'groupchat'"
         @close="$emit('close')"
         @userList="handleUserListToggle"
         @user-profile="$emit('user-profile')"
@@ -65,6 +67,8 @@
         :colors="colors"
         :rounded-corners="roundedCorners"
         :window-chat="false"
+        :member="openedChat.member"
+        :non-member-placeholder="nonMemberPlaceholder"
         @onType="$emit('onType')"
         @edit="$emit('edit', $event)"
     />
@@ -140,7 +144,10 @@
       roundedCorners: {
         type: Boolean,
         default: false
-      }
+      },
+      nonMemberPlaceholder: {
+        type: String,
+      },
     },
     data() {
       return {

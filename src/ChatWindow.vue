@@ -216,6 +216,31 @@ export default {
   text-align: left;
 }
 
+
+/**
+ * Scroll bar CSS
+ */
+/* Works on Firefox */
+div.sc-chat-window * {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(209, 209, 209, 0.6) rgba(0, 0, 0, 0);
+}
+
+/* Works on Chrome, Edge, and Safari */
+div.sc-chat-window *::-webkit-scrollbar {
+  width: 12px;
+}
+
+div.sc-chat-window *::-webkit-scrollbar-track {
+  background: slategray;
+}
+
+div.sc-chat-window *::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 20px;
+  border: 3px solid slategray;
+}
+
 @media (max-width: 450px) {
   .sc-chat-window {
     width: 100%;

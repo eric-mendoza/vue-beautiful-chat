@@ -29,6 +29,7 @@ import dictionary from "./assets/dictionary";
 
 export default {
   props: {
+    id: {},
     icons: {
       type: Object,
       default: function () {
@@ -67,6 +68,10 @@ export default {
     roundedCorners: {
       type: Boolean,
       default: false
+    },
+    groupChat: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -84,9 +89,6 @@ export default {
     },
     someoneIsTyping() {
       return this.showTypingIndicator !== '';
-    },
-    groupChat() {
-      return this.participants.length > 1;
     },
     metaMessage() {
       // Is someone typing?
@@ -120,6 +122,13 @@ export default {
     },
     toggleUserProfile() {
       this.$emit('user-profile')
+    }
+  },
+  watch: {
+    id() {
+      // Close member menu
+      this.inUserList = false;
+      this.$emit('userList', this.inUserList)
     }
   }
 }

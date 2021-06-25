@@ -226,10 +226,11 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-height: 0;
   }
 
   .left-menu-bottom {
     display: flex;
-    padding: 20px;
+    /*padding: 20px;*/
   }
 </style>
