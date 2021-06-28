@@ -50,6 +50,7 @@
       <FileMessage
         v-else-if="message.type === 'file'"
         :data="message.data"
+        :message="message"
         :message-colors="messageColors"
       />
       <TypingMessage v-else-if="message.type === 'typing'" :message-colors="messageColors" />
